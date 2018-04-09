@@ -12,6 +12,7 @@ namespace PathOfServant
         Unknown,
         Currency,
         Map,
+        DivCard,
     }
 
     public static class ItemTypeExt
@@ -26,6 +27,8 @@ namespace PathOfServant
                     return "U";
                 case ItemType.Currency:
                     return "C";
+                case ItemType.DivCard:
+                    return "D";
                 case ItemType.Map:
                     return "M";
             }

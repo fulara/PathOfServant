@@ -13,6 +13,7 @@ namespace PathOfServant
     {
         public List<Image<Bgr, byte>> Currencies;
         public List<Image<Bgr, byte>> Maps;
+        public List<Image<Bgr, byte>> DivCards;
         public List<Image<Bgr, byte>> Empty;
 
         public Image<Bgr, byte> ForPositioning;
@@ -21,6 +22,7 @@ namespace PathOfServant
         {
             Currencies = Load(path, "currencies");
             Maps = Load(path, "maps");
+            DivCards = Load(path, "cards");
             Empty = Load(path, "empty");
 
             ForPositioning = new Image<Bgr, byte>(path + @"initial-lookup.png");

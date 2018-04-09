@@ -18,7 +18,6 @@ namespace PathOfServant
         private String basePath;
 
         private ImageDictionary dictionary;
-        private Point posZero;
         private Image<Bgr, byte> source;
         private Props props;
 
@@ -53,6 +52,8 @@ namespace PathOfServant
         {
             foreach (var template in templates)
             {
+                template.ROI = new Rectangle(template.Width * 2 / 3, 0, template.Width * 2 / 3, template.Height);
+
                 for (var x = 0; x < Props.X_COUNT; ++x)
                 {
                     for (var y = 0; y < Props.Y_COUNT; ++y)
@@ -85,13 +86,17 @@ namespace PathOfServant
             return result;
         }
 
-        public ItemType[,] DoSearch()
+        public ItemType[,] DoSearch(Mapper mapper)
         {
             var findResult = CreateEmptyResultTable();
 
+            //special case.
             FindOccurences(findResult, dictionary.Empty, ItemType.Empty);
-            FindOccurences(findResult, dictionary.Currencies, ItemType.Currency);
-            FindOccurences(findResult, dictionary.Maps, ItemType.Map);
+
+            foreach (var mapEntry in mapper.Entries)
+            {
+                FindOccurences(findResult, mapEntry.images, mapEntry.type);
+            }
 
             return findResult;
         }

@@ -31,6 +31,9 @@ namespace PathOfServant
                         case ItemType.Currency:
                             source.Draw(rect, new Bgr(Color.Yellow), 4);
                             break;
+                        case ItemType.DivCard:
+                            source.Draw(rect, new Bgr(Color.Brown), 4);
+                            break;
                         case ItemType.Map:
                             source.Draw(rect, new Bgr(Color.White), 4);
                             break;
