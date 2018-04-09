@@ -105,7 +105,7 @@ namespace PathOfServant
 
             if (key == Keys.LShiftKey || key == Keys.RShiftKey)
             {
-                return ModifierKeys.Control;
+                return ModifierKeys.Shift;
             }
 
             return ModifierKeys.None;
