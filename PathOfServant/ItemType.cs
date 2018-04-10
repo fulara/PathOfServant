@@ -12,6 +12,7 @@ namespace PathOfServant
         Unknown,
         Currency,
         Map,
+        Fragments,
         DivCard,
     }
 
@@ -29,6 +30,8 @@ namespace PathOfServant
                     return "C";
                 case ItemType.DivCard:
                     return "D";
+                case ItemType.Fragments:
+                    return "F";
                 case ItemType.Map:
                     return "M";
             }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PathOfServant.ItemDictionary;
 
 namespace PathOfServant
 {
@@ -17,11 +18,11 @@ namespace PathOfServant
         //to  be removed.
         private String basePath;
 
-        private ImageDictionary dictionary;
+        private ItemDictionary dictionary;
         private Image<Bgr, byte> source;
         private Props props;
 
-        public PatternFinder(String basePath, Image<Bgr, byte> source, Props props, ImageDictionary dictionary)
+        public PatternFinder(String basePath, Image<Bgr, byte> source, Props props, ItemDictionary dictionary)
         {
             this.props = props;
             this.source = source;
@@ -48,10 +49,11 @@ namespace PathOfServant
             return false;
         }
 
-        public void FindOccurences(ItemType[,] findResult, IEnumerable<Image<Bgr, byte>> templates, ItemType type)
+        public void FindOccurences(ItemType[,] findResult, Items items)
         {
-            foreach (var template in templates)
+            foreach (var item in items.ItemList)
             {
+                var template = item.Image;
                 template.ROI = new Rectangle(template.Width * 2 / 3, 0, template.Width * 2 / 3, template.Height);
 
                 for (var x = 0; x < Props.X_COUNT; ++x)
@@ -62,7 +64,7 @@ namespace PathOfServant
                         {
                             if (IsPresentOnThisSquare(x, y, template))
                             {
-                                findResult[x, y] = type;
+                                findResult[x, y] = items.Type;
                             }
                         }
                     }
@@ -86,16 +88,13 @@ namespace PathOfServant
             return result;
         }
 
-        public ItemType[,] DoSearch(Mapper mapper)
+        public ItemType[,] DoSearch()
         {
             var findResult = CreateEmptyResultTable();
 
-            //special case.
-            FindOccurences(findResult, dictionary.Empty, ItemType.Empty);
-
-            foreach (var mapEntry in mapper.Entries)
+            foreach (var item in dictionary.All)
             {
-                FindOccurences(findResult, mapEntry.images, mapEntry.type);
+                FindOccurences(findResult, item);
             }
 
             return findResult;

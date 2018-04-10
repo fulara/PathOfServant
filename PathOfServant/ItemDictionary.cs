@@ -9,33 +9,50 @@ using System.Threading.Tasks;
 
 namespace PathOfServant
 {
-    public class ImageDictionary
+    public class ItemDictionary
     {
-        public List<Image<Bgr, byte>> Currencies;
-        public List<Image<Bgr, byte>> Maps;
-        public List<Image<Bgr, byte>> DivCards;
-        public List<Image<Bgr, byte>> Empty;
+        public class Items
+        {
+            public List<Item> ItemList { get; set; }
+            public ItemType Type { get; set; }
+        }
+
+        public Items Currencies;
+        public Items Maps;
+        public Items DivCards;
+        public Items Fragments;
+        public Items Empty;
+
+        public List<Items> All = new List<Items>();
 
         public Image<Bgr, byte> ForPositioning;
 
-        public ImageDictionary(String path)
+        public ItemDictionary(String path)
         {
-            Currencies = Load(path, "currencies");
-            Maps = Load(path, "maps");
-            DivCards = Load(path, "cards");
-            Empty = Load(path, "empty");
+            Empty = Load(path, "empty", ItemType.Empty);
+            Currencies = Load(path, "currencies", ItemType.Currency);
+            Maps = Load(path, "maps", ItemType.Map);
+            DivCards = Load(path, "cards", ItemType.DivCard);
+            Fragments = Load(path, "fragments", ItemType.Fragments);
 
             ForPositioning = new Image<Bgr, byte>(path + @"initial-lookup.png");
         }
 
-        private List<Image<Bgr, byte>> Load(String basePath, String dirName)
+        private Items Load(String basePath, String dirName, ItemType type)
         {
             String[] paths = Directory.GetFiles(Path.Combine(basePath, dirName), "*.png");
 
-            return paths.Select(p =>
+            var loadedItems = paths.Select(p =>
             {
-                return new Image<Bgr, byte>(p);
+                var name = Path.GetFileNameWithoutExtension(p);
+                return new Item { Name = name, Type = type, Image = new Image<Bgr, byte>(p) };
             }).ToList();
+
+            var items = new Items { ItemList = loadedItems, Type = type };
+
+            All.Add(items);
+
+            return items;
         }
     }
 }

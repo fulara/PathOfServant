@@ -42,13 +42,13 @@ namespace PathOfServant
             string path = @"D:\Programming\Visual Projects\PathOfServant\imgs\";
 
             var source = OpenCvHelpers.CaptureScreen();
-            var dict = new ImageDictionary(path);
+            var dict = new ItemDictionary(path);
             var props = new Props(source, dict);
-            var mapper = new Mapper(dict);
+            var offset = new TabOffset();
 
             var pf = new PatternFinder(path, source, props, dict);
 
-            var result = pf.DoSearch(mapper);
+            var result = pf.DoSearch();
 
             DebugStuff.DumpResult(path, props, result, source);
 
@@ -57,27 +57,48 @@ namespace PathOfServant
                 kb.Send(Keys.Left);
             }
 
-            foreach (var mapEntry in mapper.Entries)
-            {
-                for (int i = 0; i < mapEntry.tabOffset; ++i)
-                {
-                    kb.Send(Keys.Right);
-                }
+            int currentIndex = 0;
 
+            kb.SendDown(Keys.LControlKey);
+            foreach (var items in dict.All)
+            {
+                if(items.Type == ItemType.Empty || items.Type == ItemType.Unknown)
+                {
+                    continue;
+                }
                 for (int x = 0; x < Props.X_COUNT; ++x)
                 {
                     for (int y = 0; y < Props.Y_COUNT; ++y)
                     {
-                        if (result[x, y] == mapEntry.type)
+                        if (result[x, y] == items.Type)
                         {
+                            //move it here so we do not do select if we did not have any items in stash
+                            currentIndex = SelectTab(currentIndex, offset.GetOffset(items.Type));
+
                             var pos = props.TranslateToImage(x + 1, y + 1);
-                            kb.SendDown(Keys.LControlKey);
                             mouse.MouseLeftClick(pos.X, pos.Y);
-                            kb.SendUp(Keys.LControlKey);
                         }
                     }
                 }
             }
+            kb.SendUp(Keys.LControlKey);
+        }
+
+        private int SelectTab(int currentIndex, int targetIndex)
+        {
+            while(currentIndex > targetIndex)
+            {
+                kb.Send(Keys.Left);
+                currentIndex--;
+            }
+
+            while (currentIndex < targetIndex)
+            {
+                kb.Send(Keys.Right);
+                currentIndex++;
+            }
+
+            return currentIndex;
         }
     }
 }

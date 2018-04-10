@@ -74,11 +74,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Hotkey.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="ItemDictionary.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="KeyboardHook.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="TabOffset.cs" />
     <Compile Include="Mouse.cs" />
     <Compile Include="OpenCvHelpers.cs" />
     <Compile Include="PatternFinder.cs" />

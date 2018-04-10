@@ -22,9 +22,10 @@ namespace PathOfServant
         public void Send(Keys key)
         {
             var vk = (byte)key;
-            keybd_event(vk, 0, KEYEVENTF_EXTENDEDKEY, 0);
+            SendDown(key);
             Thread.Sleep(50);
-            keybd_event(vk, 0, KEYEVENTF_KEYUP, 0);
+            SendUp(key);
+            keybd_event(vk, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
         }
 
         public void SendDown(Keys key)
@@ -36,8 +37,9 @@ namespace PathOfServant
         public void SendUp(Keys key)
         {
             var vk = (byte)key;
-            keybd_event(vk, 0, KEYEVENTF_KEYUP, 0);
+            keybd_event(vk, 0, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
         }
+
     }
         
 }

@@ -22,12 +22,12 @@ namespace PathOfServant
 
         public Point PosZero;
 
-        public Props(Image<Bgr, byte> source, ImageDictionary dictionary)
+        public Props(Image<Bgr, byte> source, ItemDictionary dictionary)
         {
             PosZero = FindPosZero(source, dictionary);
         }
 
-        private static Point FindPosZero(Image<Bgr, byte> source, ImageDictionary dictionary)
+        private static Point FindPosZero(Image<Bgr, byte> source, ItemDictionary dictionary)
         {
             using (Image<Gray, float> result = source.MatchTemplate(dictionary.ForPositioning, TemplateMatchingType.CcorrNormed))
             {
