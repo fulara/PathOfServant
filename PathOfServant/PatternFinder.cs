@@ -65,6 +65,7 @@ namespace PathOfServant
                             if (IsPresentOnThisSquare(x, y, template))
                             {
                                 findResult[x, y] = items.Type;
+                                
                             }
                         }
                     }

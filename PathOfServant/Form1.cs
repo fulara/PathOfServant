@@ -39,7 +39,7 @@ namespace PathOfServant
 
         private void Scan()
         {
-            string path = @"D:\Programming\Visual Projects\PathOfServant\imgs\";
+            string path = System.Configuration.ConfigurationManager.AppSettings["imgPath"];
 
             var source = OpenCvHelpers.CaptureScreen();
             var dict = new ItemDictionary(path);
