@@ -179,6 +179,7 @@
             this.Controls.Add(this.itemScan);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).EndInit();

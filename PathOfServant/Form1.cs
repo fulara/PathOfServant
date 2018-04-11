@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -50,6 +51,12 @@ namespace PathOfServant
             TabOffset.offsets[ItemType.Map] = (int)numericUpDownMaps.Value-1;
             TabOffset.offsets[ItemType.DivCard] = (int)numericUpDownDvCards.Value-1;
             TabOffset.offsets[ItemType.Fragments] = (int)numericUpDownFrag.Value-1;
+
+            SaveTabOrder("currIndex", numericUpDownCurr.Value.ToString());
+            SaveTabOrder("mapIndex", numericUpDownMaps.Value.ToString());
+            SaveTabOrder("dvIndex", numericUpDownDvCards.Value.ToString());
+            SaveTabOrder("fragIndex", numericUpDownFrag.Value.ToString());
+            SaveTabOrder("essIndex", numericUpDownEss.Value.ToString());
 
             var pf = new PatternFinder(path, source, props, dict);
 
@@ -104,6 +111,63 @@ namespace PathOfServant
             }
 
             return currentIndex;
+        }
+
+        public static void SaveTabOrder(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                //ups
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            decimal currIndex = 1;
+            decimal mapIndex = 1;
+            decimal dvIndex = 1;
+            decimal fragIndex = 1;
+            decimal essIndex = 1;
+
+            try
+            {
+                string currIndexTxt = System.Configuration.ConfigurationManager.AppSettings["currIndex"];
+                string mapIndexTxt = System.Configuration.ConfigurationManager.AppSettings["mapIndex"];
+                string dvIndexTxt = System.Configuration.ConfigurationManager.AppSettings["dvIndex"];
+                string fragIndexTxt = System.Configuration.ConfigurationManager.AppSettings["fragIndex"];
+                string essIndexTxt = System.Configuration.ConfigurationManager.AppSettings["essIndex"];
+
+                decimal.TryParse(currIndexTxt, out currIndex);
+                decimal.TryParse(mapIndexTxt, out mapIndex);
+                decimal.TryParse(dvIndexTxt, out dvIndex);
+                decimal.TryParse(fragIndexTxt, out fragIndex);
+                decimal.TryParse(essIndexTxt, out essIndex);
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            numericUpDownCurr.Value = currIndex;
+            numericUpDownMaps.Value = mapIndex;
+            numericUpDownDvCards.Value = dvIndex;
+            numericUpDownFrag.Value= fragIndex;
+            numericUpDownEss.Value = essIndex;
         }
     }
 }
