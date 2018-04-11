@@ -10,17 +10,22 @@ namespace PathOfServant
 {
     public class TabOffset
     {
-        Dictionary<ItemType, int> offsets = new Dictionary<ItemType, int>
+        public static Dictionary<ItemType, int> offsets = new Dictionary<ItemType, int>
         {
-            { ItemType.Currency, 2},
+            { ItemType.Currency, 0},
             { ItemType.Map, 1},
-            { ItemType.DivCard, 5},
-            { ItemType.Fragments, 3},
+            { ItemType.DivCard, 1},
+            { ItemType.Fragments, 2},
         };
+
+        public int CurrOffset { get; }
+        public int MapOffset { get; }
+        public int DvOffset { get; }
+        public int FragOffset { get; }
 
         public int GetOffset(ItemType type)
         {
-            if(offsets.ContainsKey(type))
+            if (offsets.ContainsKey(type))
             {
                 return offsets[type];
             }
@@ -28,4 +33,5 @@ namespace PathOfServant
             return 0;
         }
     }
+    
 }

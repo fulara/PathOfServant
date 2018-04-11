@@ -65,13 +65,11 @@ namespace PathOfServant
                             if (IsPresentOnThisSquare(x, y, template))
                             {
                                 findResult[x, y] = items.Type;
-                                
                             }
                         }
                     }
                 }
             }
-
             source.ROI = Rectangle.Empty;
         }
 
@@ -97,7 +95,7 @@ namespace PathOfServant
             {
                 FindOccurences(findResult, item);
             }
-
+            
             return findResult;
         }
 
