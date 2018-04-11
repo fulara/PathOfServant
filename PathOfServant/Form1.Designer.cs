@@ -95,16 +95,11 @@
             // numericUpDownMaps
             // 
             this.numericUpDownMaps.Location = new System.Drawing.Point(67, 7);
-            this.numericUpDownMaps.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownMaps.Name = "numericUpDownMaps";
             this.numericUpDownMaps.Size = new System.Drawing.Size(46, 20);
             this.numericUpDownMaps.TabIndex = 5;
             this.numericUpDownMaps.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -112,16 +107,11 @@
             // numericUpDownCurr
             // 
             this.numericUpDownCurr.Location = new System.Drawing.Point(67, 26);
-            this.numericUpDownCurr.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownCurr.Name = "numericUpDownCurr";
             this.numericUpDownCurr.Size = new System.Drawing.Size(46, 20);
             this.numericUpDownCurr.TabIndex = 6;
             this.numericUpDownCurr.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});
@@ -129,11 +119,6 @@
             // numericUpDownDvCards
             // 
             this.numericUpDownDvCards.Location = new System.Drawing.Point(67, 45);
-            this.numericUpDownDvCards.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownDvCards.Name = "numericUpDownDvCards";
             this.numericUpDownDvCards.Size = new System.Drawing.Size(46, 20);
             this.numericUpDownDvCards.TabIndex = 7;
@@ -146,11 +131,6 @@
             // numericUpDownFrag
             // 
             this.numericUpDownFrag.Location = new System.Drawing.Point(67, 64);
-            this.numericUpDownFrag.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownFrag.Name = "numericUpDownFrag";
             this.numericUpDownFrag.Size = new System.Drawing.Size(46, 20);
             this.numericUpDownFrag.TabIndex = 8;
@@ -172,11 +152,6 @@
             // numericUpDownEss
             // 
             this.numericUpDownEss.Location = new System.Drawing.Point(67, 82);
-            this.numericUpDownEss.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownEss.Name = "numericUpDownEss";
             this.numericUpDownEss.Size = new System.Drawing.Size(46, 20);
             this.numericUpDownEss.TabIndex = 10;

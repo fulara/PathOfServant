@@ -46,10 +46,10 @@ namespace PathOfServant
             var props = new Props(source, dict);
             var offset = new TabOffset();
 
-            TabOffset.offsets[ItemType.Currency] = (int)numericUpDownCurr.Value;
-            TabOffset.offsets[ItemType.Map] = (int)numericUpDownMaps.Value;
-            TabOffset.offsets[ItemType.DivCard] = (int)numericUpDownDvCards.Value;
-            TabOffset.offsets[ItemType.Fragments] = (int)numericUpDownFrag.Value;
+            TabOffset.offsets[ItemType.Currency] = (int)numericUpDownCurr.Value-1;
+            TabOffset.offsets[ItemType.Map] = (int)numericUpDownMaps.Value-1;
+            TabOffset.offsets[ItemType.DivCard] = (int)numericUpDownDvCards.Value-1;
+            TabOffset.offsets[ItemType.Fragments] = (int)numericUpDownFrag.Value-1;
 
             var pf = new PatternFinder(path, source, props, dict);
 

@@ -12,10 +12,10 @@ namespace PathOfServant
     {
         public static Dictionary<ItemType, int> offsets = new Dictionary<ItemType, int>
         {
-            { ItemType.Currency, 0},
+            { ItemType.Currency, 1},
             { ItemType.Map, 1},
             { ItemType.DivCard, 1},
-            { ItemType.Fragments, 2},
+            { ItemType.Fragments, 1},
         };
 
         public int CurrOffset { get; }
@@ -27,6 +27,7 @@ namespace PathOfServant
         {
             if (offsets.ContainsKey(type))
             {
+                int i = offsets[type];
                 return offsets[type];
             }
 
