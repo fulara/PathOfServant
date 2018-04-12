@@ -33,7 +33,7 @@ namespace PathOfServant
             Currencies = Load(path, "currencies", ItemType.Currency);
             Maps = Load(path, "maps", ItemType.Map);
             DivCards = Load(path, "cards", ItemType.DivCard);
-            Fragments = Load(path, "fragments", ItemType.Fragments);
+            Fragments = Load(path, "fragments", ItemType.Fragment);
 
             ForPositioning = new Image<Bgr, byte>(path + @"initial-lookup.png");
         }

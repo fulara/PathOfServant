@@ -32,7 +32,7 @@ namespace PathOfServant
 
         private bool IsPresentOnThisSquare(int x, int y, Image<Bgr, byte> template)
         {
-            setRoi(x, y);
+            SetRoi(x, y);
 
             using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcorrNormed))
             {
@@ -99,7 +99,7 @@ namespace PathOfServant
             return findResult;
         }
 
-        private void setRoi(int x, int y)
+        private void SetRoi(int x, int y)
         {
             var pos = props.TranslateToImage(x, y);
             Rectangle r = new Rectangle(pos, new Size(Props.FRAME, Props.FRAME));

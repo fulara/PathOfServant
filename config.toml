@@ -1,0 +1,8 @@
+ImagesDirectory = "../../.."
+
+[TabIndices]
+CurrenciesIndex = 3
+MapIndex = 2
+DivinationCardIndex = 6
+FragmentIndex = 4
+EssencesIndex = 5

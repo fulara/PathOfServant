@@ -10,13 +10,7 @@ namespace PathOfServant
 {
     public class TabOffset
     {
-        public static Dictionary<ItemType, int> offsets = new Dictionary<ItemType, int>
-        {
-            { ItemType.Currency, 1},
-            { ItemType.Map, 1},
-            { ItemType.DivCard, 1},
-            { ItemType.Fragments, 1},
-        };
+        public Dictionary<ItemType, int> offsets = new Dictionary<ItemType, int>();
 
         public int CurrOffset { get; }
         public int MapOffset { get; }
@@ -32,6 +26,15 @@ namespace PathOfServant
             }
 
             return 0;
+        }
+
+        public void UpdateOffsets(TabIndices indices)
+        {
+            offsets[ItemType.Currency] = indices.CurrenciesIndex  - 1;
+            offsets[ItemType.Map] =  indices.MapIndex - 1;
+            offsets[ItemType.DivCard] = indices.DivinationCardIndex - 1;
+            offsets[ItemType.Fragment] = indices.FragmentIndex - 1;
+            offsets[ItemType.Essence] = indices.EssencesIndex - 1;
         }
     }
     

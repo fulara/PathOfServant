@@ -11,7 +11,6 @@ namespace PathOfServant
     public class Hotkey : IDisposable
     {
         [Flags]
-        //well, should be named ModifierKeys but I have nasty conflict then.
         public enum ModifierKeys : uint
         {
             None = 0,
@@ -80,19 +79,6 @@ namespace PathOfServant
 
         private void OnKeyPressed(object sender, GlobalKeyboardHookEventArgs e)
         {
-            //Debug.WriteLine(e.KeyboardData.VirtualCode);
-            //if (e.KeyboardData.VirtualCode != GlobalKeyboardHook.VkSnapshot)
-            //    return;
-
-            // seems, not needed in the life.
-            //if (e.KeyboardState == GlobalKeyboardHook.KeyboardState.SysKeyDown &&
-            //    e.KeyboardData.Flags == GlobalKeyboardHook.LlkhfAltdown)
-            //{
-            //    MessageBox.Show("Alt + Print Screen");
-            //    e.Handled = true;
-            //}
-            //else
-
             dispatch.Invoke((MethodInvoker)delegate { Handle(e); });
         }
 

@@ -11,8 +11,9 @@ namespace PathOfServant
         Empty,
         Unknown,
         Currency,
+        Essence,
         Map,
-        Fragments,
+        Fragment,
         DivCard,
     }
 
@@ -23,14 +24,16 @@ namespace PathOfServant
             switch (type)
             {
                 case ItemType.Empty:
-                    return "E";
+                    return "e";
                 case ItemType.Unknown:
                     return "U";
                 case ItemType.Currency:
                     return "C";
                 case ItemType.DivCard:
                     return "D";
-                case ItemType.Fragments:
+                case ItemType.Fragment:
+                    return "F";
+                case ItemType.Essence:
                     return "F";
                 case ItemType.Map:
                     return "M";
