@@ -45,6 +45,7 @@ namespace PathOfServant
 
         private void Scan()
         {
+            SaveTabOrder();
             var source = OpenCvHelpers.CaptureScreen();
             var path = config.ImagesDirectory + "/";
             var dict = new ItemDictionary(path);
@@ -130,6 +131,13 @@ namespace PathOfServant
         private void Form1_Load(object sender, EventArgs e)
         {
             config = Nett.Toml.ReadFile<Config>("config.toml");
+            numericUpDownCurr.Value = config.TabIndices.CurrenciesIndex;
+            numericUpDownMaps.Value = config.TabIndices.MapIndex;
+            numericUpDownDvCards.Value = config.TabIndices.DivinationCardIndex;
+            numericUpDownFrag.Value = config.TabIndices.FragmentIndex;
+            numericUpDownEss.Value = config.TabIndices.EssencesIndex;
+
+                
         }
     }
 }
