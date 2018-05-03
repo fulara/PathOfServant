@@ -18,118 +18,34 @@ namespace PathOfServant
 {
     public partial class Form1 : Form
     {
-        Hotkey hotkey;
-        Mouse mouse;
-        Keyboard kb;
-        Config config;
-
-        Props props;
-
+        StashDumpLogic stashDumper;
+        StashSorterLogic stashSorter;
         public Form1()
         {
             InitializeComponent();
 
-            hotkey = new Hotkey(this);
-            mouse = new Mouse();
-            kb = new Keyboard();
-
-            hotkey.Register(Hotkey.ModifierKeys.Control, Keys.D, () => { Scan(); });
-
-            config = Nett.Toml.ReadFile<Config>("config.toml");
+            stashDumper = new StashDumpLogic(this);
+            stashSorter = new StashSorterLogic(this);
         }
 
         private void itemScan_Click(object sender, EventArgs e)
         {
-            Scan();
+            stashDumper.Dump();
         }
 
-        private void Scan()
+        private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            var source = OpenCvHelpers.CaptureScreen();
-            var path = config.ImagesDirectory + "/";
-            var dict = new ItemDictionary(path);
-
-            if (props == null)
-            {
-                props = new Props(source, dict);
-            }
-            var offset = new TabOffset();
-            offset.UpdateOffsets(config.TabIndices);
-
-            var pf = new PatternFinder(path, source, props, dict);
-
-            var result = pf.DoSearch();
-
-            for(int i = 0; i < 15; ++i)
-            {
-                kb.Send(Keys.Left);
-            }
-
-            int currentIndex = 0;
-
-            kb.SendDown(Keys.LControlKey);
-            foreach (var items in dict.All)
-            {
-                if(items.Type == ItemType.Empty || items.Type == ItemType.Unknown)
-                {
-                    continue;
-                }
-                for (int x = 0; x < Props.X_COUNT - 1; ++x)
-                {
-                    for (int y = 0; y < Props.Y_COUNT; ++y)
-                    {
-                        if (result[x, y] == items.Type)
-                        {
-                            //move it here so we do not do select if we did not have any items in stash
-                            currentIndex = SelectTab(currentIndex, offset.GetOffset(items.Type));
-
-                            var pos = props.TranslateToImage(x + 1, y + 1);
-                            mouse.MouseLeftClick(pos.X, pos.Y);
-                        }
-                    }
-                }
-            }
-            kb.SendUp(Keys.LControlKey);
+            stashSorter.RefreshStash();
         }
 
-        private int SelectTab(int currentIndex, int targetIndex)
+        private void buttonPickSet_Click(object sender, EventArgs e)
         {
-            if (currentIndex == targetIndex)
-            {
-                return currentIndex;
-            }
-
-            Thread.Sleep(100);
-
-            while(currentIndex > targetIndex)
-            {
-                kb.Send(Keys.Left);
-                currentIndex--;
-            }
-
-            while (currentIndex < targetIndex)
-            {
-                kb.Send(Keys.Right);
-                currentIndex++;
-            }
-
-            return currentIndex;
+            stashSorter.PickSetButtonClick();
         }
 
-        public void SaveTabOrder()
+        private void buttonPublicLoop_Click(object sender, EventArgs e)
         {
-            config.TabIndices.CurrenciesIndex = Convert.ToInt32(numericUpDownCurr.Value);
-            config.TabIndices.MapIndex = Convert.ToInt32(numericUpDownMaps.Value);
-            config.TabIndices.DivinationCardIndex = Convert.ToInt32(numericUpDownDvCards.Value);
-            config.TabIndices.FragmentIndex = Convert.ToInt32(numericUpDownFrag.Value);
-            config.TabIndices.EssencesIndex = Convert.ToInt32(numericUpDownEss.Value);
-
-            Nett.Toml.WriteFile(config, "config.toml");
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            config = Nett.Toml.ReadFile<Config>("config.toml");
+            stashSorter.ButtonPublicLoopClick();
         }
     }
 }
