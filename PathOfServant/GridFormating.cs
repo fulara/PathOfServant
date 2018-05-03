@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +75,17 @@ namespace PathOfServant
             }
         }
 
+        private static string GetIconLocalPath(string url)
+        {
+            
+            string[] parts = url.Split('?')[0].Split('/');
+            if (parts.Length > 6)
+            {
+                return "Icons\\"+parts[6] + "\\" + parts[7];
+            }
+            return null;
+        }
+
         public static void SetGridColorsPerItem(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView grid, bool showItemIcon, List<PictureBox> pbs)
         {
             pbs.ForEach(pb => pb.Parent = null);
@@ -84,6 +97,20 @@ namespace PathOfServant
                 {
                     if (showItemIcon)
                     {
+                        string localIcon = GetIconLocalPath(item.icon);
+                        Bitmap img = null;
+                        if (System.IO.File.Exists(localIcon))
+                        {
+                            img = (Bitmap)Image.FromFile(localIcon);
+                        }
+                        else
+                        {
+                            img = WebTools.GetBitmapFromUrl(item.icon);
+                            FileInfo file = new FileInfo(localIcon);
+                            file.Directory.Create();
+                            img.Save(localIcon, ImageFormat.Png);
+                        }
+
                         var cellRectangle = grid.GetCellDisplayRectangle(item.x, item.y, false);
                         int imgHeigth = cellRectangle.Height * item.h;
                         int imgWidth = cellRectangle.Width * item.w;
@@ -91,13 +118,12 @@ namespace PathOfServant
                         picBox.Parent = grid;
                         picBox.BringToFront();
                         picBox.Location = cellRectangle.Location;
-                        Bitmap img = WebTools.GetBitmapFromUrl(item.icon);
+
                         Color transparencyColor = img.GetPixel(0, 0);
                         picBox.Size = new Size(imgWidth, imgHeigth);
                         picBox.SizeMode = PictureBoxSizeMode.Zoom;
                         picBox.BackColor = Color.Transparent;
                         picBox.Image = img;
-
                         pbs.Add(picBox);
                     }
                     for (int x = item.x; x < item.x + item.w; x++) 
