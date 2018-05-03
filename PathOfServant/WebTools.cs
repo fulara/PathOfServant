@@ -31,9 +31,9 @@ namespace PathOfServant
         {
             public List<object> tabs { get; set; }
         }
-        public static List<TabInfo> GetUserTabs()
+        public static List<TabInfo> GetUserTabs(string accName)
         {
-            string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName=piotrek816");
+            string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName="+ accName);
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             StashList ro = jsonSerializer.Deserialize<StashList>(json);
