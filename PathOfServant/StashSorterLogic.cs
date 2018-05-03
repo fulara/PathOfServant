@@ -13,10 +13,11 @@ namespace PathOfServant
         string charName = "";
         public List<RootObject> rootObjects = new List<RootObject>();
         private Stash charStash = new Stash();
-        Dictionary<string, List<StashItemsFiltered>> itemsPerType = new Dictionary<string, List<StashItemsFiltered>>();
-        Dictionary<string, string> itemData = new Dictionary<string, string>();
+        Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType = new Dictionary<ItemType, List<StashItemsFiltered>>();
         Mouse mouse = new Mouse();
         Keyboard kb = new Keyboard();
+
+        List<PictureBox> itemIcons = new List<PictureBox>();
 
         Form1 form;
 
@@ -30,9 +31,11 @@ namespace PathOfServant
             //try
             {
                 itemsPerType.Clear();
-                itemsPerType = DataConversion.SortItemsToCategories(itemData, WebTools.GetStashItemsFromWeb(form.textBoxAcc.Text, form.textBoxStashNo.Text));
+                form.dataGridViewStash.Rows.Clear();
+
+                itemsPerType = DataConversion.SortItemsToCategories(WebTools.GetStashItemsFromWeb(form.textBoxAcc.Text, form.textBoxStashNo.Text));
                 GridFormating.SetGridRowsColumns(form.dataGridViewStash, true);
-                GridFormating.SetGridColorsPerItem(itemsPerType, form.dataGridViewStash, form.checkBox1.Checked);
+                GridFormating.SetGridColorsPerItem(itemsPerType, form.dataGridViewStash, form.checkBox1.Checked, itemIcons);
                 GridFormating.MakeItemsSummary(itemsPerType, form.dataGridViewItems);
             }
             //catch (Exception ex) { MessageBox.Show("Something went wrong :("+Environment.NewLine+ex.Message+Environment.NewLine+ex.StackTrace); }
@@ -62,7 +65,7 @@ namespace PathOfServant
             int setsNo = SetCalculation.HowManySets(itemsPerType);
             if (setsNo > 0)
             {
-                Dictionary<string, List<StashItemsFiltered>> itemsPerTypeCopy = new Dictionary<string, List<StashItemsFiltered>>();
+                Dictionary<ItemType, List<StashItemsFiltered>> itemsPerTypeCopy = new Dictionary<ItemType, List<StashItemsFiltered>>();
                 foreach (var typeEntry in itemsPerType)
                 {
                     List<StashItemsFiltered> newList = new List<StashItemsFiltered>();

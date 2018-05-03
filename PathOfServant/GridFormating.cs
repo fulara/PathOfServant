@@ -49,10 +49,10 @@ namespace PathOfServant
             }
         }
 
-        public static void MakeItemsSummary(Dictionary<string, List<StashItemsFiltered>> itemsPerType, DataGridView grid)
+        public static void MakeItemsSummary(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView grid)
         {
             DataTable gridSource = new DataTable();
-            gridSource.Columns.Add("Tyepe");
+            gridSource.Columns.Add("Type");
             gridSource.Columns.Add("Quantity");
             gridSource.Columns.Add("lowLvl");
             
@@ -73,8 +73,10 @@ namespace PathOfServant
             }
         }
 
-        public static void SetGridColorsPerItem(Dictionary<string, List<StashItemsFiltered>> itemsPerType, DataGridView grid, bool showItemIcon)
+        public static void SetGridColorsPerItem(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView grid, bool showItemIcon, List<PictureBox> pbs)
         {
+            pbs.ForEach(pb => pb.Parent = null);
+            pbs.Clear();
             foreach (var typeEntry in itemsPerType)
             {
                 Color typeColor= GetColorByItemType(typeEntry.Key);
@@ -95,6 +97,8 @@ namespace PathOfServant
                         picBox.SizeMode = PictureBoxSizeMode.Zoom;
                         picBox.BackColor = Color.Transparent;
                         picBox.Image = img;
+
+                        pbs.Add(picBox);
                     }
                     for (int x = item.x; x < item.x + item.w; x++) 
                     {
@@ -111,19 +115,24 @@ namespace PathOfServant
             }
         }
 
-        public static Color GetColorByItemType(string itemType)
+        public static Color GetColorByItemType(ItemType itemType)
         {
             switch(itemType)
             {
-                case "amulet": return Color.Pink;
-                case "chest": return Color.Blue;
-                case "weapon": return Color.Yellow;
-                case "gloves": return Color.GreenYellow;
-                case "belt": return Color.Lime;
-                case "helmet": return Color.Violet;
-                case "ring": return Color.Brown;
-                case "boots": return Color.Orange;
-                default: return Color.White;
+                case ItemType.Amulet: return Color.Pink;
+                case ItemType.Body: return Color.Blue;
+                case ItemType.Wep1h: return Color.LightYellow;
+                case ItemType.Wep2h: return Color.Yellow;
+                case ItemType.Gloves: return Color.GreenYellow;
+                case ItemType.Belt: return Color.Lime;
+                case ItemType.Helmet: return Color.Violet;
+                case ItemType.Ring: return Color.Brown;
+                case ItemType.Boots: return Color.Orange;
+                case ItemType.Currency: return Color.Gold;
+                case ItemType.Jewel: return Color.DarkBlue;
+                case ItemType.Gem: return Color.LightGreen;
+                case ItemType.Fragment: return Color.SandyBrown;
+                default: return Color.Red;
             }
         }
     }

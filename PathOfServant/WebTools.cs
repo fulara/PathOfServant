@@ -58,15 +58,61 @@ namespace PathOfServant
                 
                 foreach (var propertyEntry in bla)
                 {
+
                     switch (propertyEntry.Key)
                     {
                         case "category":
                             {
                                 Dictionary<string, object> categoryDict = (Dictionary<string, object>)propertyEntry.Value;
-                                
+
+                                String typeLine = "";
+                                String icon = "";
+                                if(bla.ContainsKey("typeLine"))
+                                {
+                                    typeLine = (String)bla["typeLine"];
+                                }
+
+                                if (bla.ContainsKey("icon"))
+                                {
+                                    icon = (String)bla["icon"];
+                                }
+
                                 foreach (var categoryEntry in categoryDict)
                                 {
-                                    newItem.category = categoryEntry.Key;
+                                    if (categoryEntry.Key == "maps" && typeLine.Contains("Offering"))
+                                    {
+                                        newItem.category = ItemType.Fragment;
+                                    }
+                                    else if (categoryEntry.Key == "armour" || categoryEntry.Key == "accessories")
+                                    {
+                                        String subcat = (String)((object[])categoryEntry.Value)[0];
+                                        newItem.category = ItemTypeUtils.FromString(subcat);
+                                    }
+                                    else if (categoryEntry.Key == "weapons")
+                                    {
+                                        if(icon.Contains("OneHand"))
+                                        {
+                                            newItem.category = ItemType.Wep1h;
+                                        } else if(icon.Contains("TwoHand"))
+                                        {
+                                            newItem.category = ItemType.Wep2h;
+                                        } else
+                                        {
+                                            throw new NotImplementedException("not implemented wep recognition");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            newItem.category = ItemTypeUtils.FromString(categoryEntry.Key);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Debug.WriteLine("eh.");
+                                        }
+                                    }
+
                                     object[] subCat = (object[])categoryEntry.Value;
                                     if (subCat.Count()>0)
                                     newItem.subCategory = subCat[0].ToString();
@@ -180,14 +226,6 @@ namespace PathOfServant
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://pathofexile.com/character-window/get-characters");
             request.CookieContainer = new CookieContainer();
             request.CookieContainer.Add(c);
-            //request.Credentials = new System.Net.NetworkCredential("piotrek816", "k0l3k0l3k");
-            //request.Method = "GET";
-            //request.ContentType = "application/json";
-            //string autorization = "piotrek816" + ":" + "k0l3k0l3k";
-            //byte[] binaryAuthorization = System.Text.Encoding.UTF8.GetBytes(autorization);
-            //autorization = Convert.ToBase64String(binaryAuthorization);
-            //autorization = "Basic " + autorization;
-            //request.Headers.Add("AUTHORIZATION", autorization);
 
             WebResponse response = request.GetResponse();
             Debug.WriteLine("Response cached: " + response.IsFromCache);

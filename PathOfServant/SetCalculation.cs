@@ -9,15 +9,15 @@ namespace PathOfServant
 {
     class SetCalculation
     {
-        public static int HowManySets(Dictionary<string, List<StashItemsFiltered>> itemsPerType)
+        public static int HowManySets(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType)
         {
             //74
-            Dictionary<string, int> itemsQty = CountItemTypes(itemsPerType);
-            string smallestCountType = itemsQty.OrderBy(i => i.Value).First().Key;
+            Dictionary<ItemType, int> itemsQty = CountItemTypes(itemsPerType);
+            ItemType smallestCountType = itemsQty.OrderBy(i => i.Value).First().Key;
             return itemsQty[smallestCountType];
         }
 
-        public static List<StashItemsFiltered> MakeSets(Dictionary<string, List<StashItemsFiltered>> itemsPerType)
+        public static List<StashItemsFiltered> MakeSets(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType)
         {
             List<StashItemsFiltered> result = new List<StashItemsFiltered>();
             bool lowLvl = true;
@@ -26,13 +26,13 @@ namespace PathOfServant
                 StashItemsFiltered newItem = RemoveItem(itemsPerType, itemTypeEntry.Key, lowLvl);
                 result.Add(newItem);// (newItem.category+" iLvl:"+newItem.itlvl + " id:" + newItem.id);
 
-                if (newItem.category=="ring")
+                if (newItem.category== ItemType.Ring)
                 {
                     StashItemsFiltered secondRing = RemoveItem(itemsPerType, itemTypeEntry.Key, lowLvl);
                     result.Add(secondRing); //(secondRing.category + " iLvl:" + newItem.itlvl + " id:" + secondRing.id);
                 }
 
-                if (newItem.category == "weapon1h")
+                if (newItem.category == ItemType.Wep1h)
                 {
                     StashItemsFiltered secondWeapon1h = RemoveItem(itemsPerType, itemTypeEntry.Key, lowLvl);
                     result.Add(secondWeapon1h);//(secondWeapon1h.category + " iLvl:" + newItem.itlvl + " id:" + secondWeapon1h.id);
@@ -70,17 +70,17 @@ namespace PathOfServant
             return result;
         }
 
-        public static StashItemsFiltered RemoveItem(Dictionary<string, List<StashItemsFiltered>> items, string type, bool lowLvl)
+        public static StashItemsFiltered RemoveItem(Dictionary<ItemType, List<StashItemsFiltered>> items, ItemType type, bool lowLvl)
         {
             StashItemsFiltered thisItem = null;
-            if (type != "weapon")
+            if (!type.IsWeapon())
             {
                 thisItem=chooseItem(items[type], lowLvl);
             }
             else
             {
-                List<StashItemsFiltered> weapons2h = items["weapon"].Where(i => i.category == "weapon2h").ToList();
-                List<StashItemsFiltered> weapons1h = items["weapon"].Where(i => i.category == "weapon1h").ToList();
+                List<StashItemsFiltered> weapons2h = items[ItemType.Wep2h].Where(i => i.category == ItemType.Wep2h).ToList();
+                List<StashItemsFiltered> weapons1h = items[ItemType.Wep1h].Where(i => i.category == ItemType.Wep1h).ToList();
                 if (weapons2h.Count>0)
                 {
                     thisItem = chooseItem(weapons2h, lowLvl);
@@ -94,36 +94,36 @@ namespace PathOfServant
             return thisItem;
         }
 
-        public static Dictionary<string, int> CountItemTypes(Dictionary<string, List<StashItemsFiltered>> itemsPerType)
+        public static Dictionary<ItemType, int> CountItemTypes(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType)
         {
-            Dictionary<string, int> itemsQty = new Dictionary<string, int>();
+            Dictionary<ItemType, int> itemsQty = new Dictionary<ItemType, int>();
             int h1 = 0;
             int h2 = 0;
             foreach (var itemEntry in itemsPerType)
             {
 
-                if (!itemEntry.Key.Contains("weapon") & !itemEntry.Key.Contains("ring"))
+                if ( itemEntry.Key.IsWeapon() && !(itemEntry.Key == ItemType.Ring))
                 {
                     itemsQty.Add(itemEntry.Key, itemEntry.Value.Count);
                 }
                 else
                 {
-                    if (itemEntry.Key.Contains("weapon"))
+                    if (itemEntry.Key.IsWeapon())
                     {
                         foreach (var item in itemEntry.Value)
                         {
-                            if (item.category == "weapon1h") h1++;
-                            if (item.category == "weapon2h") h2++;
+                            if (item.category == ItemType.Wep1h) h1++;
+                            if (item.category == ItemType.Wep2h) h2++;
                         }
                     }
-                    if (itemEntry.Key == "ring")
+                    if (itemEntry.Key == ItemType.Ring)
                     {
                         itemsQty.Add(itemEntry.Key, itemEntry.Value.Count/2);
                     }
                 }
             }
 
-            itemsQty.Add("weapon", h2 + h1 / 2);
+            itemsQty.Add(ItemType.Wep2h, h2 + h1 / 2);
             return itemsQty;
         }
     }

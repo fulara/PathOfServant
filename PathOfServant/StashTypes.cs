@@ -8,7 +8,7 @@ namespace PathOfServant
 {
     public class StashItemsFiltered
     {
-        public string category { get; set; }
+        public ItemType category { get; set; }
         public string subCategory { get; set; }
         public string icon { get; set; }
         public string id { get; set; }
