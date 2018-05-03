@@ -74,7 +74,7 @@ namespace PathOfServant
                 {
                     continue;
                 }
-                for (int x = 1; x < Props.X_COUNT; ++x)
+                for (int x = 0; x < Props.X_COUNT - 1; ++x)
                 {
                     for (int y = 0; y < Props.Y_COUNT; ++y)
                     {
