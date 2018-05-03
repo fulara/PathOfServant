@@ -47,26 +47,26 @@
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.numericUpDownCurr = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDownMaps = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownDvCards = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownFrags = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownEss = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownFrags = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownDvCards = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDownMaps = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownCurr = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStash)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEss)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewStash
@@ -283,56 +283,22 @@
             this.panel2.Size = new System.Drawing.Size(170, 366);
             this.panel2.TabIndex = 10;
             // 
-            // numericUpDownCurr
+            // label9
             // 
-            this.numericUpDownCurr.Location = new System.Drawing.Point(84, 29);
-            this.numericUpDownCurr.Name = "numericUpDownCurr";
-            this.numericUpDownCurr.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownCurr.TabIndex = 0;
-            this.numericUpDownCurr.Tag = "";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(25, 124);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Essences";
             // 
-            // label5
+            // numericUpDownEss
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(43, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Curr";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(43, 55);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Maps";
-            // 
-            // numericUpDownMaps
-            // 
-            this.numericUpDownMaps.Location = new System.Drawing.Point(84, 53);
-            this.numericUpDownMaps.Name = "numericUpDownMaps";
-            this.numericUpDownMaps.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownMaps.TabIndex = 2;
-            this.numericUpDownMaps.Tag = "";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(43, 78);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Divs";
-            // 
-            // numericUpDownDvCards
-            // 
-            this.numericUpDownDvCards.Location = new System.Drawing.Point(84, 76);
-            this.numericUpDownDvCards.Name = "numericUpDownDvCards";
-            this.numericUpDownDvCards.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownDvCards.TabIndex = 4;
-            this.numericUpDownDvCards.Tag = "";
+            this.numericUpDownEss.Location = new System.Drawing.Point(84, 122);
+            this.numericUpDownEss.Name = "numericUpDownEss";
+            this.numericUpDownEss.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownEss.TabIndex = 8;
+            this.numericUpDownEss.Tag = "";
             // 
             // label8
             // 
@@ -351,22 +317,56 @@
             this.numericUpDownFrags.TabIndex = 6;
             this.numericUpDownFrags.Tag = "";
             // 
-            // label9
+            // label7
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 124);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Essences";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(43, 78);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(28, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Divs";
             // 
-            // numericUpDownEss
+            // numericUpDownDvCards
             // 
-            this.numericUpDownEss.Location = new System.Drawing.Point(84, 122);
-            this.numericUpDownEss.Name = "numericUpDownEss";
-            this.numericUpDownEss.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownEss.TabIndex = 8;
-            this.numericUpDownEss.Tag = "";
+            this.numericUpDownDvCards.Location = new System.Drawing.Point(84, 76);
+            this.numericUpDownDvCards.Name = "numericUpDownDvCards";
+            this.numericUpDownDvCards.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownDvCards.TabIndex = 4;
+            this.numericUpDownDvCards.Tag = "";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(43, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Maps";
+            // 
+            // numericUpDownMaps
+            // 
+            this.numericUpDownMaps.Location = new System.Drawing.Point(84, 53);
+            this.numericUpDownMaps.Name = "numericUpDownMaps";
+            this.numericUpDownMaps.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownMaps.TabIndex = 2;
+            this.numericUpDownMaps.Tag = "";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(43, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(26, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Curr";
+            // 
+            // numericUpDownCurr
+            // 
+            this.numericUpDownCurr.Location = new System.Drawing.Point(84, 29);
+            this.numericUpDownCurr.Name = "numericUpDownCurr";
+            this.numericUpDownCurr.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownCurr.TabIndex = 0;
+            this.numericUpDownCurr.Tag = "";
             // 
             // Form1
             // 
@@ -377,6 +377,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStash)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -384,11 +385,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEss)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).EndInit();
             this.ResumeLayout(false);
 
         }

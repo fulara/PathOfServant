@@ -17,20 +17,67 @@ namespace PathOfServant
 {
     class WebTools
     {
-        public class StashInfo
+        public class TabInfo
         {
             public string n { get; set; }
-            public string i { get; set; }
+            public Int32 i { get; set; }
+            public string id { get; set; }
             public string type { get; set; }
+            public bool selected { get; set; }
+            
         }
-        public static Dictionary<string,string> GetTypesOfStash()
+
+        public class StashList
+        {
+            public List<object> tabs { get; set; }
+        }
+        public static List<TabInfo> GetUserTabs()
         {
             string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName=piotrek816");
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
-            List<StashInfo> ro = jsonSerializer.Deserialize<List<StashInfo>>(json);
+            StashList ro = jsonSerializer.Deserialize<StashList>(json);
+            List<TabInfo> userTabs = new List<TabInfo>();
+            foreach (var item in ro.tabs)
+            {
+                Dictionary<string, object> tabs = (Dictionary<string, object>)item;
+                TabInfo newTab = new TabInfo();
+                foreach (var tabEntry in tabs)
+                {
+                    switch (tabEntry.Key)
+                    {
+                        case "n":
+                            {
+                                newTab.n = (string)tabEntry.Value;
+                                break;
+                            }
+                        case "i":
+                            {
+                                newTab.i = (Int32)tabEntry.Value;
+                                break;
+                            }
+                        case "id":
+                            {
+                                newTab.id = (string)tabEntry.Value;
+                                break;
+                            }
+                        case "type":
+                            {
+                                newTab.type = (string)tabEntry.Value;
+                                break;
+                            }
+                        case "selected":
+                            {
+                                newTab.selected = (bool)tabEntry.Value;
+                                break;
+                            }
+                    }
+                }
+                userTabs.Add(newTab);
 
-            return new Dictionary<string, string>();
+            }
+
+            return userTabs;
         }
 
         public static List<StashItemsFiltered> GetStashItemsFromWeb(string acc, string stashNo)

@@ -26,6 +26,7 @@ namespace PathOfServant
 
             stashDumper = new StashDumpLogic(this);
             stashSorter = new StashSorterLogic(this);
+            
         }
 
         private void itemScan_Click(object sender, EventArgs e)
@@ -46,6 +47,11 @@ namespace PathOfServant
         private void buttonPublicLoop_Click(object sender, EventArgs e)
         {
             stashSorter.ButtonPublicLoopClick();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            WebTools.GetUserTabs();
         }
     }
 }
