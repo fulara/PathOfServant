@@ -19,21 +19,20 @@ namespace PathOfServant
     {
         public class TabInfo
         {
-            public string n { get; set; }
-            public Int32 i { get; set; }
+            public string caption { get; set; }
+            public Int32 index { get; set; }
             public string id { get; set; }
             public string type { get; set; }
             public bool selected { get; set; }
-            
         }
 
         public class StashList
         {
             public List<object> tabs { get; set; }
         }
-        public static List<TabInfo> GetUserTabs(string accName)
+        public static List<TabInfo> GetUserTabs(string accName, string cookie)
         {
-            string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName="+ accName);
+            string json = WebTools.getPrivateStashJSON(cookie, "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName="+ accName);
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             StashList ro = jsonSerializer.Deserialize<StashList>(json);
@@ -48,12 +47,12 @@ namespace PathOfServant
                     {
                         case "n":
                             {
-                                newTab.n = (string)tabEntry.Value;
+                                newTab.caption = (string)tabEntry.Value;
                                 break;
                             }
                         case "i":
                             {
-                                newTab.i = (Int32)tabEntry.Value;
+                                newTab.index = (Int32)tabEntry.Value;
                                 break;
                             }
                         case "id":
@@ -80,13 +79,18 @@ namespace PathOfServant
             return userTabs;
         }
 
-        public static List<StashItemsFiltered> GetStashItemsFromWeb(string acc, string stashNo)
+        public static List<StashItemsFiltered> GetStashItemsFromWeb(string acc, string stashNo, TextBox textBoxCookie)
         {
             string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex="+stashNo+"&accountName=" + acc;
-            IEnumerable<Tuple<string, string>> results = WebTools.ReadCookies(".pathofexile.com");
-            Tuple<string, string> result = results.Where(x => x.Item1 == "POESESSID").First();
+            if (textBoxCookie .Text== "")
+            {
+                IEnumerable<Tuple<string, string>> results = WebTools.ReadCookies(".pathofexile.com");
+                Tuple<string, string> result = results.Where(x => x.Item1 == "POESESSID").First();
+                textBoxCookie.Text = result.Item2;
+            }
+            
 
-            string json = WebTools.getPrivateStashJSON(result.Item2, url);
+            string json = WebTools.getPrivateStashJSON(textBoxCookie.Text, url);
             //do to: read cookie expiration date, read new cookie only when expired.
 
             //string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", url);
@@ -220,7 +224,7 @@ namespace PathOfServant
                 
                 myStash.Add(newItem);
             }
-            Debug.WriteLine("Helmets: " + hel);
+            //Debug.WriteLine("Helmets: " + hel);
             return myStash;
         }
 

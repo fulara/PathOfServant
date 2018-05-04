@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace PathOfServant
         Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType = new Dictionary<ItemType, List<StashItemsFiltered>>();
         Mouse mouse = new Mouse();
         Keyboard kb = new Keyboard();
-
+        Int32 previousItemsCount = 0;
         List<PictureBox> itemIcons = new List<PictureBox>();
 
         Form1 form;
@@ -26,19 +27,22 @@ namespace PathOfServant
             this.form = form;
         }
 
-        public void RefreshStash()
+        public bool RefreshStash()
         {
-            //try
+            List<StashItemsFiltered> itemsFromWeb = WebTools.GetStashItemsFromWeb(form.textBoxAcc.Text, form.textBoxStashNo.Text, form.textBoxCookie);
+            if (previousItemsCount != itemsFromWeb.Count)
             {
-                itemsPerType.Clear();
+                previousItemsCount = itemsFromWeb.Count;
                 form.dataGridViewStash.Rows.Clear();
-
-                itemsPerType = DataConversion.SortItemsToCategories(WebTools.GetStashItemsFromWeb(form.textBoxAcc.Text, form.textBoxStashNo.Text));
+                itemsPerType.Clear();
+                itemsPerType = DataConversion.SortItemsToCategories(itemsFromWeb);
                 GridFormating.SetGridRowsColumns(form.dataGridViewStash, true);
                 GridFormating.SetGridColorsPerItem(itemsPerType, form.dataGridViewStash, form.checkBox1.Checked, itemIcons);
                 GridFormating.MakeItemsSummary(itemsPerType, form.dataGridViewItems);
+                form.labelLastChange.Text = "Last change: "+System.DateTime.Now.ToLongTimeString();
+                return true;
             }
-            //catch (Exception ex) { MessageBox.Show("Something went wrong :("+Environment.NewLine+ex.Message+Environment.NewLine+ex.StackTrace); }
+            return false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -55,8 +59,22 @@ namespace PathOfServant
                 Thread.CurrentThread.IsBackground = true;
                 PublicStash.fillRootObjects(charStash, form.textBoxAcc.Text, PublicStash.GetLatestId());
             }).Start();
+        }
 
-
+        private void SetItemsPicked(List<StashItemsFiltered> pickedSet)
+        {
+            List<string> idList = pickedSet.Select(itm => itm.id).ToList();
+            foreach (var typeEntry in itemsPerType)
+            {
+                foreach (var item in typeEntry.Value)
+                {
+                    if (idList.Contains(item.id))
+                    {
+                        item.picked = true;
+                        Debug.WriteLine(item.typeName+" flagged picked");
+                    }
+                }
+            }
         }
 
         public void PickSetButtonClick()
@@ -90,6 +108,7 @@ namespace PathOfServant
                 }
                 kb.SendUp(Keys.ControlKey);
 
+                SetItemsPicked(set);
                 Thread.Sleep(2000);
                 RefreshStash();
             }

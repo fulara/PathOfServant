@@ -53,11 +53,14 @@ namespace PathOfServant
 
         public static void MakeItemsSummary(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView grid)
         {
-            DataTable gridSource = new DataTable();
-            gridSource.Columns.Add("Type");
-            gridSource.Columns.Add("Quantity");
-            gridSource.Columns.Add("lowLvl");
-            
+            grid.Rows.Clear();
+            if (grid.Columns.Count == 0)
+            {
+                grid.Columns.Add("Type", "Type");
+                grid.Columns.Add("Quantity", "Quantity");
+                grid.Columns.Add("lowLvl", "lowlvl");
+            }
+
             foreach (var typeEntry  in itemsPerType)
             {
                 int lowLvl = 0;
@@ -65,14 +68,19 @@ namespace PathOfServant
                 {
                     if (item.itlvl < 75) lowLvl++;
                 }
-                gridSource.Rows.Add(typeEntry.Key, typeEntry.Value.Count,lowLvl);
-
+                grid.Rows.Add(typeEntry.Key, typeEntry.Value.Count,lowLvl);
+                Color bckColor = GetColorByItemType(typeEntry.Key);
+                foreach (DataGridViewCell cell in grid.Rows[grid.Rows.Count-1].Cells)
+                {
+                    cell.Style.BackColor = bckColor;
+                }
             }
-            grid.DataSource = gridSource;
+
             foreach (DataGridViewColumn col in grid.Columns)
             {
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
+
         }
 
         private static string GetIconLocalPath(string url)
@@ -143,11 +151,15 @@ namespace PathOfServant
 
         public static Color GetColorByItemType(ItemType itemType)
         {
+            if (itemType.ToString()=="Wep1h")
+            {
+
+            }
             switch(itemType)
             {
-                case ItemType.Amulet: return Color.Pink;
+                case ItemType.Amulet: return Color.Cyan;
                 case ItemType.Body: return Color.Blue;
-                case ItemType.Wep1h: return Color.LightYellow;
+                case ItemType.Wep1h: return Color.LightGray;
                 case ItemType.Wep2h: return Color.Yellow;
                 case ItemType.Gloves: return Color.GreenYellow;
                 case ItemType.Belt: return Color.Lime;

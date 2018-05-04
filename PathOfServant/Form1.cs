@@ -51,7 +51,7 @@ namespace PathOfServant
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            WebTools.GetUserTabs();
+            WebTools.GetUserTabs(textBoxAcc.Text,textBoxCookie.Text);
         }
     }
 }
