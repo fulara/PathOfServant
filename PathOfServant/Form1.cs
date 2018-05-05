@@ -51,7 +51,8 @@ namespace PathOfServant
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            WebTools.GetUserTabs(textBoxAcc.Text,textBoxCookie.Text);
+            GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(textBoxAcc.Text, textBoxCookie.Text), dataGridViewStashes);
+            
         }
     }
 }

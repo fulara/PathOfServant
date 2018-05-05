@@ -5,14 +5,36 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PathOfServant.WebTools;
 
 namespace PathOfServant
 {
     class GridFormating
     {
+        public static void FormatGriForUserTabs(List<TabInfo> userTabs, DataGridView grid)
+        {
+            Config  config = Nett.Toml.ReadFile<Config>("config.toml");
+
+            foreach (var tab in userTabs)
+            {
+                DataGridViewComboBoxCell comboCell = new DataGridViewComboBoxCell();
+                comboCell.Items.AddRange(tabCaptionToId.Select(t => t.Value).ToArray());
+                
+                
+                if (tabCaptionToId.ContainsKey(tab.id))
+                {
+                    comboCell.Value = tabCaptionToId[tab.id];
+                }
+                grid.Rows.Add(tab.caption, tab.type, comboCell);
+            }
+        }
+
+
+
         public static void SetGridRowsColumns(DataGridView grid, bool quad)
         {
             grid.AllowUserToAddRows = false;

@@ -75,7 +75,6 @@ namespace PathOfServant
                 userTabs.Add(newTab);
 
             }
-
             return userTabs;
         }
 

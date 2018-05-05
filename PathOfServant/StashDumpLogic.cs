@@ -107,13 +107,13 @@ namespace PathOfServant
 
         public void SaveTabOrder()
         {
-            config.TabIndices.CurrenciesIndex = Convert.ToInt32(form.numericUpDownCurr.Value);
-            config.TabIndices.MapIndex = Convert.ToInt32(form.numericUpDownMaps.Value);
-            config.TabIndices.DivinationCardIndex = Convert.ToInt32(form.numericUpDownDvCards.Value);
-            config.TabIndices.FragmentIndex = Convert.ToInt32(form.numericUpDownFrags.Value);
-            config.TabIndices.EssencesIndex = Convert.ToInt32(form.numericUpDownEss.Value);
+            //config.TabIndices.CurrenciesIndex = Convert.ToInt32(form.numericUpDownCurr.Value);
+            //config.TabIndices.MapIndex = Convert.ToInt32(form.numericUpDownMaps.Value);
+            //config.TabIndices.DivinationCardIndex = Convert.ToInt32(form.numericUpDownDvCards.Value);
+            //config.TabIndices.FragmentIndex = Convert.ToInt32(form.numericUpDownFrags.Value);
+            //config.TabIndices.EssencesIndex = Convert.ToInt32(form.numericUpDownEss.Value);
 
-            Nett.Toml.WriteFile(config, "config.toml");
+            //Nett.Toml.WriteFile(config, "config.toml");
         }
     }
 }

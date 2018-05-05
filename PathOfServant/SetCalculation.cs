@@ -106,7 +106,6 @@ namespace PathOfServant
                     }
                 }
             }
-
             return result;
         }
 

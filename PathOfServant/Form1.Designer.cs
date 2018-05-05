@@ -49,27 +49,15 @@
             this.textBoxAcc = new System.Windows.Forms.TextBox();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownEss = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownFrags = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownDvCards = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDownMaps = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownCurr = new System.Windows.Forms.NumericUpDown();
+            this.dataGridViewStashes = new System.Windows.Forms.DataGridView();
+            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usage = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStash)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEss)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewStash
@@ -79,12 +67,12 @@
             this.dataGridViewStash.AllowUserToResizeColumns = false;
             this.dataGridViewStash.AllowUserToResizeRows = false;
             this.dataGridViewStash.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStash.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewStash.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridViewStash.Location = new System.Drawing.Point(2, 2);
             this.dataGridViewStash.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewStash.Name = "dataGridViewStash";
             this.dataGridViewStash.RowTemplate.Height = 24;
-            this.dataGridViewStash.Size = new System.Drawing.Size(353, 368);
+            this.dataGridViewStash.Size = new System.Drawing.Size(300, 368);
             this.dataGridViewStash.TabIndex = 6;
             // 
             // timer1
@@ -276,11 +264,12 @@
             this.dataGridViewItems.AllowUserToResizeRows = false;
             this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewItems.Location = new System.Drawing.Point(359, 2);
+            this.dataGridViewItems.Location = new System.Drawing.Point(306, 2);
             this.dataGridViewItems.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewItems.Name = "dataGridViewItems";
+            this.dataGridViewItems.RowHeadersVisible = false;
             this.dataGridViewItems.RowTemplate.Height = 24;
-            this.dataGridViewItems.Size = new System.Drawing.Size(353, 368);
+            this.dataGridViewItems.Size = new System.Drawing.Size(300, 368);
             this.dataGridViewItems.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -288,120 +277,54 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewStash, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridViewStashes, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewItems, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 81);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(890, 372);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
-            // panel2
+            // dataGridViewStashes
             // 
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.numericUpDownEss);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.numericUpDownFrags);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.numericUpDownDvCards);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.numericUpDownMaps);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.numericUpDownCurr);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(717, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(170, 366);
-            this.panel2.TabIndex = 10;
+            this.dataGridViewStashes.AllowUserToAddRows = false;
+            this.dataGridViewStashes.AllowUserToDeleteRows = false;
+            this.dataGridViewStashes.AllowUserToResizeColumns = false;
+            this.dataGridViewStashes.AllowUserToResizeRows = false;
+            this.dataGridViewStashes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStashes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Caption,
+            this.Type,
+            this.Usage});
+            this.dataGridViewStashes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewStashes.Location = new System.Drawing.Point(610, 2);
+            this.dataGridViewStashes.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewStashes.Name = "dataGridViewStashes";
+            this.dataGridViewStashes.RowHeadersVisible = false;
+            this.dataGridViewStashes.RowTemplate.Height = 24;
+            this.dataGridViewStashes.Size = new System.Drawing.Size(278, 368);
+            this.dataGridViewStashes.TabIndex = 11;
             // 
-            // label9
+            // Caption
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 124);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Essences";
+            this.Caption.HeaderText = "Caption";
+            this.Caption.Name = "Caption";
+            this.Caption.ReadOnly = true;
             // 
-            // numericUpDownEss
+            // Type
             // 
-            this.numericUpDownEss.Location = new System.Drawing.Point(84, 122);
-            this.numericUpDownEss.Name = "numericUpDownEss";
-            this.numericUpDownEss.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownEss.TabIndex = 8;
-            this.numericUpDownEss.Tag = "";
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
             // 
-            // label8
+            // Usage
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(43, 101);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(33, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Frags";
-            // 
-            // numericUpDownFrags
-            // 
-            this.numericUpDownFrags.Location = new System.Drawing.Point(84, 99);
-            this.numericUpDownFrags.Name = "numericUpDownFrags";
-            this.numericUpDownFrags.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownFrags.TabIndex = 6;
-            this.numericUpDownFrags.Tag = "";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(43, 78);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Divs";
-            // 
-            // numericUpDownDvCards
-            // 
-            this.numericUpDownDvCards.Location = new System.Drawing.Point(84, 76);
-            this.numericUpDownDvCards.Name = "numericUpDownDvCards";
-            this.numericUpDownDvCards.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownDvCards.TabIndex = 4;
-            this.numericUpDownDvCards.Tag = "";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(43, 55);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Maps";
-            // 
-            // numericUpDownMaps
-            // 
-            this.numericUpDownMaps.Location = new System.Drawing.Point(84, 53);
-            this.numericUpDownMaps.Name = "numericUpDownMaps";
-            this.numericUpDownMaps.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownMaps.TabIndex = 2;
-            this.numericUpDownMaps.Tag = "";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(43, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Curr";
-            // 
-            // numericUpDownCurr
-            // 
-            this.numericUpDownCurr.Location = new System.Drawing.Point(84, 29);
-            this.numericUpDownCurr.Name = "numericUpDownCurr";
-            this.numericUpDownCurr.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownCurr.TabIndex = 0;
-            this.numericUpDownCurr.Tag = "";
+            this.Usage.HeaderText = "Usage";
+            this.Usage.Name = "Usage";
             // 
             // Form1
             // 
@@ -418,13 +341,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEss)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrags)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDvCards)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,20 +364,13 @@
         public System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.DataGridView dataGridViewItems;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        public System.Windows.Forms.NumericUpDown numericUpDownEss;
-        public System.Windows.Forms.NumericUpDown numericUpDownFrags;
-        public System.Windows.Forms.NumericUpDown numericUpDownDvCards;
-        public System.Windows.Forms.NumericUpDown numericUpDownMaps;
-        public System.Windows.Forms.NumericUpDown numericUpDownCurr;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox textBoxCookie;
         public System.Windows.Forms.Label labelLastChange;
+        public System.Windows.Forms.DataGridView dataGridViewStashes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Caption;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Usage;
     }
 }
 
