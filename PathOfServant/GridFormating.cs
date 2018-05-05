@@ -15,29 +15,109 @@ namespace PathOfServant
 {
     class GridFormating
     {
+        Form1 form;
+        Config config;
+        public GridFormating(Form1 form, Config config)
+        {
+            this.form = form;
+            this.config = config;
+        }
         enum Bla
         {
             Foo,
         }
 
-        public static void FormatGriForUserTabs(List<TabInfo> userTabs, DataGridView grid)
+        public static void FormatGriForUserTabs(List<TabInfo> userTabs, Config config, DataGridView grid)
         {
-            foreach (var tab in userTabs)
+            Dictionary<string, string> tabCaptionToId = new Dictionary<string, string>();
+            if (config.TabUsage.Currency != null)
             {
-                //DataGridViewComboBoxCell comboCell = new DataGridViewComboBoxCell();
-                //comboCell.Value = "?";
-                //comboCell.DataSource = Enum.GetValues(typeof(Bla));
-                
-                //comboCell.Items.AddRange(tabCaptionToId.Select(t => t.Value).ToArray());
-
-
-                //if (tabCaptionToId.ContainsKey(tab.id))
-                //{
-                //    comboCell.Value = tabCaptionToId[tab.id];
-                //comboCell.Value = "ba";
-                //}
-                //grid.Rows.Add(tab.caption, tab.type, comboCell);
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.Currency))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Currency, "Currency");
+                }
             }
+            if (config.TabUsage.DivCards != null)
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.DivCards))
+                {
+                    tabCaptionToId.Add(config.TabUsage.DivCards, "DivCards");
+                }
+            }
+            if (config.TabUsage.Dump != null )
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.Dump))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Dump, "Dump");
+                }
+            }
+            if (config.TabUsage.Essences != null)
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.Essences))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Essences, "Essences");
+                }
+            }
+            if (config.TabUsage.Fragments != null)
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.Fragments))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Fragments, "Fragments");
+                }
+            }
+            if (config.TabUsage.Maps != null )
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.Maps))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Maps, "Maps");
+                }
+            }
+            if (config.TabUsage.Other != null )
+            {
+                if(!tabCaptionToId.ContainsKey(config.TabUsage.Other))
+                {
+                    tabCaptionToId.Add(config.TabUsage.Other, "Other");
+                }
+            }
+            if (config.TabUsage.SetCollection != null)
+            {
+                if (!tabCaptionToId.ContainsKey(config.TabUsage.SetCollection))
+                {
+                    tabCaptionToId.Add(config.TabUsage.SetCollection, "SetCollection");
+                }
+            }
+            var items = config.TabUsage.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(i=>i.Name).ToArray();
+            //var itemsv = config.TabUsage.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(i=>i.GetValue(config, null)).ToList();
+            grid.Columns.Clear();
+            DataGridViewTextBoxColumn captionCol = new DataGridViewTextBoxColumn();
+            captionCol.HeaderText = "Caption";
+            captionCol.Width = 80;
+            DataGridViewTextBoxColumn typeCol = new DataGridViewTextBoxColumn();
+            typeCol.HeaderText = "Type";
+            typeCol.Width = 80;
+            DataGridViewComboBoxColumn comboColum = new DataGridViewComboBoxColumn( );
+            comboColum.HeaderText = "Usage";
+            comboColum.Name = "Usage";
+            comboColum.DataSource = items;
+            comboColum.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            DataGridViewTextBoxColumn idCol = new DataGridViewTextBoxColumn();
+            idCol.HeaderText = "id";
+            idCol.Name = "id";
+            idCol.Visible = false;
+
+
+            grid.Columns.AddRange(captionCol, typeCol, comboColum, idCol);
+
+                foreach (var tab in userTabs)
+                {
+                    grid.Rows.Add(tab.caption, tab.type,"",tab.id);
+                    if (tabCaptionToId.ContainsKey(tab.id))
+                    {
+                         grid.Rows[grid.Rows.Count-1].Cells["Usage"].Value = tabCaptionToId[tab.id];
+                    }
+                }
+
+
         }
 
 

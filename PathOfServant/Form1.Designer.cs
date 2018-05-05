@@ -33,6 +33,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonPublicLoop = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.league = new System.Windows.Forms.Label();
+            this.comboBoxLeague = new System.Windows.Forms.ComboBox();
             this.labelLastChange = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxCookie = new System.Windows.Forms.TextBox();
@@ -53,8 +55,7 @@
             this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usage = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.comboBoxLeague = new System.Windows.Forms.ComboBox();
-            this.league = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStash)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
@@ -119,6 +120,29 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(890, 81);
             this.panel1.TabIndex = 5;
+            // 
+            // league
+            // 
+            this.league.AutoSize = true;
+            this.league.Location = new System.Drawing.Point(715, 38);
+            this.league.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.league.Name = "league";
+            this.league.Size = new System.Drawing.Size(38, 13);
+            this.league.TabIndex = 17;
+            this.league.Text = "start id";
+            this.league.Visible = false;
+            // 
+            // comboBoxLeague
+            // 
+            this.comboBoxLeague.FormattingEnabled = true;
+            this.comboBoxLeague.Items.AddRange(new object[] {
+            "Bestiary",
+            "Flashback Event (BRE001)"});
+            this.comboBoxLeague.Location = new System.Drawing.Point(758, 35);
+            this.comboBoxLeague.Name = "comboBoxLeague";
+            this.comboBoxLeague.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxLeague.TabIndex = 16;
+            this.comboBoxLeague.SelectedIndexChanged += new System.EventHandler(this.comboBoxLeague_SelectedIndexChanged);
             // 
             // labelLastChange
             // 
@@ -303,7 +327,8 @@
             this.dataGridViewStashes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Caption,
             this.Type,
-            this.Usage});
+            this.Usage,
+            this.id});
             this.dataGridViewStashes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStashes.Location = new System.Drawing.Point(610, 2);
             this.dataGridViewStashes.Margin = new System.Windows.Forms.Padding(2);
@@ -312,6 +337,7 @@
             this.dataGridViewStashes.RowTemplate.Height = 24;
             this.dataGridViewStashes.Size = new System.Drawing.Size(278, 368);
             this.dataGridViewStashes.TabIndex = 11;
+            this.dataGridViewStashes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStashes_CellValueChanged);
             // 
             // Caption
             // 
@@ -330,28 +356,11 @@
             this.Usage.HeaderText = "Usage";
             this.Usage.Name = "Usage";
             // 
-            // comboBoxLeague
+            // id
             // 
-            this.comboBoxLeague.FormattingEnabled = true;
-            this.comboBoxLeague.Items.AddRange(new object[] {
-            "Bestiary",
-            "Flashback Event (BRE001)"});
-            this.comboBoxLeague.Location = new System.Drawing.Point(758, 35);
-            this.comboBoxLeague.Name = "comboBoxLeague";
-            this.comboBoxLeague.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxLeague.TabIndex = 16;
-            this.comboBoxLeague.SelectedIndexChanged += new System.EventHandler(this.comboBoxLeague_SelectedIndexChanged);
-            // 
-            // league
-            // 
-            this.league.AutoSize = true;
-            this.league.Location = new System.Drawing.Point(715, 38);
-            this.league.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.league.Name = "league";
-            this.league.Size = new System.Drawing.Size(38, 13);
-            this.league.TabIndex = 17;
-            this.league.Text = "start id";
-            this.league.Visible = false;
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.Visible = false;
             // 
             // Form1
             // 
@@ -400,6 +409,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Usage;
         private System.Windows.Forms.Label league;
         private System.Windows.Forms.ComboBox comboBoxLeague;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }
 

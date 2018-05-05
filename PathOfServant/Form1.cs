@@ -20,6 +20,7 @@ namespace PathOfServant
     {
         StashDumpLogic stashDumper;
         StashSorterLogic stashSorter;
+        GridFormating gridFormating;
 
         Config config = Nett.Toml.ReadFile<Config>("config.toml");
         public Form1()
@@ -30,6 +31,7 @@ namespace PathOfServant
 
             stashDumper = new StashDumpLogic(this);
             stashSorter = new StashSorterLogic(this, config);
+            gridFormating = new GridFormating(this, config);
         }
 
         private void itemScan_Click(object sender, EventArgs e)
@@ -54,7 +56,7 @@ namespace PathOfServant
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), dataGridViewStashes);
+            GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), config, dataGridViewStashes);
             
         }
 
@@ -96,6 +98,63 @@ namespace PathOfServant
             textBoxCookie.Text = config.Account.Cookie;
             comboBoxLeague.Text = config.Account.League;
 
+        }
+
+        private void dataGridViewStashes_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Debug.WriteLine("change in: " + e.RowIndex);
+            if (e.ColumnIndex == 2 && e.RowIndex > -1)
+            {
+                if (dataGridViewStashes.Rows[e.RowIndex].Cells["Usage"].Value != null)
+                {
+                    string id = dataGridViewStashes.Rows[e.RowIndex].Cells["id"].Value.ToString();
+                    string usage = dataGridViewStashes.Rows[e.RowIndex].Cells["Usage"].Value.ToString();
+                    switch (usage)
+                    {
+                        case "Currency":
+                            {
+                                config.TabUsage.Currency = id;
+                                break;
+                            }
+                        case "DivCards":
+                            {
+                                config.TabUsage.DivCards = id;
+                                break;
+                            }
+                        case "Dump":
+                            {
+                                config.TabUsage.Dump = id;
+                                break;
+                            }
+                        case "Essences":
+                            {
+                                config.TabUsage.Essences = id;
+                                break;
+                            }
+                        case "Fragments":
+                            {
+                                config.TabUsage.Fragments = id;
+                                break;
+                            }
+                        case "Maps":
+                            {
+                                config.TabUsage.Maps = id;
+                                break;
+                            }
+                        case "Other":
+                            {
+                                config.TabUsage.Other = id;
+                                break;
+                            }
+                        case "SetCollection":
+                            {
+                                config.TabUsage.SetCollection = id;
+                                break;
+                            }
+                    }
+                    config.Save();
+                }
+            }
         }
     }
 }

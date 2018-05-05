@@ -30,7 +30,7 @@ namespace PathOfServant
 
     public class TabUsage
     {
-        public string Currecy  { get; set; }
+        public string Currency  { get; set; }
         public string Maps { get; set; }
         public string Fragments { get; set; }
         public string DivCards { get; set; }
