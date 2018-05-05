@@ -83,7 +83,7 @@ namespace PathOfServant
 
         public static List<StashItemsFiltered> GetStashItemsFromWeb(Account acc, string stashNo)
         {
-            string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex="+stashNo+"&accountName=" + acc;
+            string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex="+stashNo+"&accountName=" + acc.Name;
 
             string json = WebTools.getPrivateStashJSON(acc, url);
             //do to: read cookie expiration date, read new cookie only when expired.
