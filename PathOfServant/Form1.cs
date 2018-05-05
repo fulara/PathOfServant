@@ -24,7 +24,9 @@ namespace PathOfServant
         Config config = Nett.Toml.ReadFile<Config>("config.toml");
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            LoadConfig();
 
             stashDumper = new StashDumpLogic(this);
             stashSorter = new StashSorterLogic(this, config);
