@@ -20,6 +20,8 @@ namespace PathOfServant
         public Int32 h { get; set; }
         public bool quadLayout { get; set; }
         public bool picked { get; set; }
+        public bool identified { get; set; }
+        public int frameType { get; set; }
 
         public static StashItemsFiltered Copy(StashItemsFiltered inputItem)
         {
@@ -37,7 +39,8 @@ namespace PathOfServant
             result.h = inputItem.h;
             result.quadLayout = inputItem.quadLayout;
             result.picked = inputItem.picked;
-
+            result.identified = inputItem.identified;
+            result.frameType = inputItem.frameType;
             return result;
         }
     }

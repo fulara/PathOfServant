@@ -25,9 +25,10 @@ namespace PathOfServant
             bool weaponsChoosen = false;
             foreach (var itemTypeEntry in itemsPerType)
             {
-                StashItemsFiltered newItem = RemoveItem(itemsPerType, itemTypeEntry.Key, ref needLowLvl);
+                
                 if (itemTypeEntry.Key.ToString() != "Wep1h" && itemTypeEntry.Key.ToString() != "Wep2h")
                 {
+                    StashItemsFiltered newItem = RemoveItem(itemsPerType, itemTypeEntry.Key, ref needLowLvl);
                     result.Add(newItem);// (newItem.category+" iLvl:"+newItem.itlvl + " id:" + newItem.id);
 
                     if (newItem.category == ItemType.Ring)
@@ -80,13 +81,15 @@ namespace PathOfServant
 
         public static StashItemsFiltered ChooseItem(List<StashItemsFiltered> items, ref bool needLowLvl)
         {
-            Debug.WriteLine(items[0].typeName + " needlow:" + needLowLvl.ToString());
+            Debug.Write("need low: "+needLowLvl +" ");
             StashItemsFiltered result = null;
             if (needLowLvl)
             {
                 foreach (var item in items)
                 {
                     if (item.picked) continue;
+                    if (item.identified) continue;
+                    if (item.frameType != 2) continue;
                     if (item.itlvl < 75)
                     {
                         result = item;
@@ -99,13 +102,28 @@ namespace PathOfServant
             {
                 foreach (var item in items)
                 {
-                    if (!item.picked)
+                    if (item.picked) continue;
+                    if (item.identified) continue;
+                    if (item.frameType != 2) continue;
+                    if (item.itlvl > 74)
                     {
                         result = item;
                         break;
                     }
                 }
             }
+            if (result==null)
+            {
+                foreach (var item in items)
+                {
+                    if (item.picked) continue;
+                    if (item.identified) continue;
+                    if (item.frameType != 2) continue;
+                    result = item;
+                    break;
+                }
+            }
+            Debug.Write(result.typeName + " " + result.itlvl + Environment.NewLine);
             return result;
         }
 
@@ -122,7 +140,7 @@ namespace PathOfServant
                 if ( !itemEntry.Key.IsWeapon() && !(itemEntry.Key == ItemType.Ring))
                 {
 
-                    itemsQty.Add(itemEntry.Key, itemEntry.Value.Where(i => i.picked == false).ToList().Count);
+                    itemsQty.Add(itemEntry.Key, itemEntry.Value.Where(i => !i.picked  & !i.identified & i.frameType==2).ToList().Count);
                 }
                 else
                 {
@@ -131,6 +149,8 @@ namespace PathOfServant
                         foreach (var item in itemEntry.Value)
                         {
                             if (item.picked) continue;
+                            if (item.identified) continue;
+                            if (item.frameType != 2) continue;
                             if (item.category == ItemType.Wep1h) h1++;
                             if (item.category == ItemType.Wep2h) h2++;
                         }

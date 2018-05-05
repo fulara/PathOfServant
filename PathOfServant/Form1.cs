@@ -57,7 +57,6 @@ namespace PathOfServant
         private void Form1_Load(object sender, EventArgs e)
         {
             GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), config, dataGridViewStashes);
-            
         }
 
         private void textBoxAcc_TextChanged(object sender, EventArgs e)
@@ -90,14 +89,12 @@ namespace PathOfServant
                 IEnumerable<Tuple<string, string>> results = WebTools.ReadCookies(".pathofexile.com");
                 Tuple<string, string> result = results.Where(x => x.Item1 == "POESESSID").First();
                 config.Account.Cookie = result.Item2;
-
                 config.Save();
             }
 
             textBoxAcc.Text = config.Account.Name;
             textBoxCookie.Text = config.Account.Cookie;
             comboBoxLeague.Text = config.Account.League;
-
         }
 
         private void dataGridViewStashes_CellValueChanged(object sender, DataGridViewCellEventArgs e)

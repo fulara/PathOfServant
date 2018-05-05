@@ -35,7 +35,7 @@ namespace PathOfServant
         public static List<TabInfo> GetUserTabs(Account acc)
         {
             string json = WebTools.getPrivateStashJSON(acc,
-                Uri.EscapeUriString(String.Format("https://pathofexile.com/character-window/get-stash-items?league={0}&tabs=1&tabIndex=1&accountName={1}", acc.League,acc.Name)));
+            Uri.EscapeUriString(String.Format("https://pathofexile.com/character-window/get-stash-items?league={0}&tabs=1&tabIndex=1&accountName={1}", acc.League,acc.Name)));
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             StashList ro = jsonSerializer.Deserialize<StashList>(json);
@@ -212,6 +212,18 @@ namespace PathOfServant
                             {
                                 Int32 h = (Int32)propertyEntry.Value;
                                 newItem.h = h;
+                                break;
+                            }
+                        case "identified":
+                            {
+                                bool identified = (bool)propertyEntry.Value;
+                                newItem.identified = identified;
+                                break;
+                            }
+                        case "frameType":
+                            {
+                                Int32 h = (Int32)propertyEntry.Value;
+                                newItem.frameType = h;
                                 break;
                             }
                     }
