@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -160,14 +161,24 @@ namespace PathOfServant
             }
         }
 
-        public static void MakeItemsSummary(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView grid)
+        public static void MakeItemsSummary(Dictionary<ItemType, List<StashItemsFiltered>> itemsPerType, DataGridView gridItems, DataGridView gridSets)
         {
-            grid.Rows.Clear();
-            if (grid.Columns.Count == 0)
+            Dictionary<string, int> setsQty = new Dictionary<string, int>();
+            setsQty.Add("Body", 0);
+            setsQty.Add("Boots",0);
+            setsQty.Add("Gloves",0);
+            setsQty.Add("Ring", 0);
+            setsQty.Add("Amulet", 0);
+            setsQty.Add("Helmet", 0);
+            setsQty.Add("Weapon", 0);
+            setsQty.Add("Belt", 0);
+
+            gridItems.Rows.Clear();
+            if (gridItems.Columns.Count == 0)
             {
-                grid.Columns.Add("Type", "Type");
-                grid.Columns.Add("Quantity", "Quantity");
-                grid.Columns.Add("lowLvl", "lowlvl");
+                gridItems.Columns.Add("Type", "Type");
+                gridItems.Columns.Add("Quantity", "Items qty");
+                gridItems.Columns.Add("lowLvl", "lowlvl");
             }
 
             foreach (var typeEntry  in itemsPerType)
@@ -177,15 +188,46 @@ namespace PathOfServant
                 {
                     if (item.itlvl < 75) lowLvl++;
                 }
-                grid.Rows.Add(typeEntry.Key, typeEntry.Value.Count,lowLvl);
+                gridItems.Rows.Add(typeEntry.Key, typeEntry.Value.Count,lowLvl);
                 Color bckColor = GetColorByItemType(typeEntry.Key);
-                foreach (DataGridViewCell cell in grid.Rows[grid.Rows.Count-1].Cells)
+                foreach (DataGridViewCell cell in gridItems.Rows[gridItems.Rows.Count-1].Cells)
                 {
                     cell.Style.BackColor = bckColor;
                 }
+
+                if (!typeEntry.Key.IsWeapon())
+                {
+                    if (typeEntry.Key.ToString()!="Ring")
+                    {
+                        setsQty[typeEntry.Key.ToString()] = typeEntry.Value.Count;
+                    }
+                    else
+                    {
+                        setsQty[typeEntry.Key.ToString()] = typeEntry.Value.Count/2;
+                    }
+                }
+                else
+                {
+                    if (typeEntry.Key.ToString() != "Ring")
+                    {
+                        setsQty["Weapon"] += typeEntry.Value.Count / 2;
+                    }
+                    else
+                    {
+                        setsQty["Weapon"] += typeEntry.Value.Count;
+                    }
+                }
+                
             }
 
-            foreach (DataGridViewColumn col in grid.Columns)
+            gridSets.Rows.Clear();
+            foreach (var tyeEntry in setsQty)
+            {
+                gridSets.Rows.Add(tyeEntry.Key, tyeEntry.Value);
+            }
+            gridSets.Sort(gridSets.Columns["SetsQty"], ListSortDirection.Ascending);
+
+            foreach (DataGridViewColumn col in gridItems.Columns)
             {
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }

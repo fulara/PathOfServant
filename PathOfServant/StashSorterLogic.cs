@@ -40,7 +40,7 @@ namespace PathOfServant
                 itemsPerType = DataConversion.SortItemsToCategories(itemsFromWeb);
                 GridFormating.SetGridRowsColumns(form.dataGridViewStash, true);
                 GridFormating.SetGridColorsPerItem(itemsPerType, form.dataGridViewStash, form.checkBox1.Checked, itemIcons);
-                GridFormating.MakeItemsSummary(itemsPerType, form.dataGridViewItems);
+                GridFormating.MakeItemsSummary(itemsPerType, form.dataGridViewItems, form.dataGridViewSets);
                 form.labelLastChange.Text = "Last change: "+System.DateTime.Now.ToLongTimeString();
                 return true;
             }
