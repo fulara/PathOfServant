@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using static PathOfServant.Form1;
 using System.Web.Script.Serialization;
 using System.Drawing;
+using System.Web;
 
 namespace PathOfServant
 {
@@ -30,9 +31,11 @@ namespace PathOfServant
         {
             public List<object> tabs { get; set; }
         }
-        public static List<TabInfo> GetUserTabs(string accName, string cookie)
+
+        public static List<TabInfo> GetUserTabs(Account acc)
         {
-            string json = WebTools.getPrivateStashJSON(cookie, "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=1&tabIndex=1&accountName="+ accName);
+            string json = WebTools.getPrivateStashJSON(acc,
+                Uri.EscapeUriString(String.Format("https://pathofexile.com/character-window/get-stash-items?league={0}&tabs=1&tabIndex=1&accountName={1}", acc.League,acc.Name)));
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             StashList ro = jsonSerializer.Deserialize<StashList>(json);
@@ -78,18 +81,11 @@ namespace PathOfServant
             return userTabs;
         }
 
-        public static List<StashItemsFiltered> GetStashItemsFromWeb(string acc, string stashNo, TextBox textBoxCookie)
+        public static List<StashItemsFiltered> GetStashItemsFromWeb(Account acc, string stashNo)
         {
             string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex="+stashNo+"&accountName=" + acc;
-            if (textBoxCookie .Text== "")
-            {
-                IEnumerable<Tuple<string, string>> results = WebTools.ReadCookies(".pathofexile.com");
-                Tuple<string, string> result = results.Where(x => x.Item1 == "POESESSID").First();
-                textBoxCookie.Text = result.Item2;
-            }
-            
 
-            string json = WebTools.getPrivateStashJSON(textBoxCookie.Text, url);
+            string json = WebTools.getPrivateStashJSON(acc, url);
             //do to: read cookie expiration date, read new cookie only when expired.
 
             //string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", url);
@@ -261,19 +257,18 @@ namespace PathOfServant
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        public static string getPrivateStashJSON(string PoeCookie, string path)
+        public static string getPrivateStashJSON(Account acc, string path)
         {
             
             path  = path + "&character=" + RandomString(6);
 
             var cookies = new CookieContainer();
-            Cookie c = new Cookie("POESESSID", PoeCookie, "/", ".pathofexile.com");
+            Cookie c = new Cookie("POESESSID", acc.Cookie, "/", ".pathofexile.com");
             cookies.Add(c);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
             request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
 
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://pathofexile.com/character-window/get-characters");
             request.CookieContainer = new CookieContainer();
             request.CookieContainer.Add(c);
 

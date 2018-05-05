@@ -15,21 +15,28 @@ namespace PathOfServant
 {
     class GridFormating
     {
+        enum Bla
+        {
+            Foo,
+        }
+
         public static void FormatGriForUserTabs(List<TabInfo> userTabs, DataGridView grid)
         {
-            Config  config = Nett.Toml.ReadFile<Config>("config.toml");
-
             foreach (var tab in userTabs)
             {
-                DataGridViewComboBoxCell comboCell = new DataGridViewComboBoxCell();
-                comboCell.Items.AddRange(tabCaptionToId.Select(t => t.Value).ToArray());
+                //DataGridViewComboBoxCell comboCell = new DataGridViewComboBoxCell();
+                //comboCell.Value = "?";
+                //comboCell.DataSource = Enum.GetValues(typeof(Bla));
                 
-                
-                if (tabCaptionToId.ContainsKey(tab.id))
-                {
-                    comboCell.Value = tabCaptionToId[tab.id];
-                }
-                grid.Rows.Add(tab.caption, tab.type, comboCell);
+                //comboCell.Items.AddRange(tabCaptionToId.Select(t => t.Value).ToArray());
+
+
+                //if (tabCaptionToId.ContainsKey(tab.id))
+                //{
+                //    comboCell.Value = tabCaptionToId[tab.id];
+                //comboCell.Value = "ba";
+                //}
+                //grid.Rows.Add(tab.caption, tab.type, comboCell);
             }
         }
 

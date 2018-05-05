@@ -73,6 +73,8 @@ namespace PathOfServant
                     return ItemType.Currency;
                 case "maps":
                     return ItemType.Map;
+                case "cards":
+                    return ItemType.DivCard;
             }
 
             throw new NotImplementedException("FromString unimplemented for " + s);

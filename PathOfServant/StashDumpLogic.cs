@@ -27,9 +27,7 @@ namespace PathOfServant
             mouse = new Mouse();
             kb = new Keyboard();
 
-            hotkey.Register(Hotkey.ModifierKeys.Control, Keys.D, () => { Dump(); });
-
-            config = Nett.Toml.ReadFile<Config>("config.toml");
+            hotkey.Register(Hotkey.ModifierKeys.Control, Keys.D, () => { Dump(); });            
         }
 
         public void Dump()

@@ -21,15 +21,17 @@ namespace PathOfServant
         List<PictureBox> itemIcons = new List<PictureBox>();
 
         Form1 form;
+        Config config;
 
-        public StashSorterLogic(Form1 form)
+        public StashSorterLogic(Form1 form, Config config)
         {
             this.form = form;
+            this.config = config;
         }
 
         public bool RefreshStash()
         {
-            List<StashItemsFiltered> itemsFromWeb = WebTools.GetStashItemsFromWeb(form.textBoxAcc.Text, form.textBoxStashNo.Text, form.textBoxCookie);
+            List<StashItemsFiltered> itemsFromWeb = WebTools.GetStashItemsFromWeb(config.Account, form.textBoxStashNo.Text);
             if (previousItemsCount != itemsFromWeb.Count)
             {
                 previousItemsCount = itemsFromWeb.Count;

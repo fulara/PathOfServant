@@ -11,6 +11,12 @@ namespace PathOfServant
         public String ImagesDirectory { get; set; }
         public TabUsage TabUsage { get; set; }
         public TabIndices TabIndices { get; set; }
+        public Account Account { get; set; }
+
+        public void Save()
+        {
+            Nett.Toml.WriteFile(this, "config.toml");
+        }
     }
 
     public class TabIndices
@@ -32,5 +38,12 @@ namespace PathOfServant
         public string SetCollection { get; set; }
         public string Dump { get; set; }
         public string Other { get; set; }
+    }
+
+    public class Account
+    {
+        public string Name { get; set; }
+        public string Cookie { get; set; }
+        public string League { get; set; }
     }
 }
