@@ -81,161 +81,174 @@ namespace PathOfServant
             return userTabs;
         }
 
-        public static List<StashItemsFiltered> GetStashItemsFromWeb(Account acc, string stashNo)
+        public static List<StashItemsFiltered> GetSetCollectionItemsFromWeb(Account acc, DataGridView gridTabsUsage)
         {
-            string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex="+stashNo+"&accountName=" + acc.Name;
-
-            string json = WebTools.getPrivateStashJSON(acc, url);
-            //do to: read cookie expiration date, read new cookie only when expired.
-
-            //string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", url);
-
-            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            jsonSerializer.MaxJsonLength = Int32.MaxValue;
-            PrivateStash ro = jsonSerializer.Deserialize<PrivateStash>(json);
-            List<StashItemsFiltered> myStash = new List<StashItemsFiltered>();
-            int hel = 0;
-
-            foreach (var item in ro.items)
+            List<int> setTabsIndexes = new List<int>();
+            for (int r = 0; r < gridTabsUsage.Rows.Count; r++) 
             {
-                StashItemsFiltered newItem = new StashItemsFiltered();
-                newItem.quadLayout = ro.quadLayout;
-                Dictionary<string, object> bla = (Dictionary<string, object>)item;
-                
-                foreach (var propertyEntry in bla)
+                if (gridTabsUsage.Rows[r].Cells["Usage"].Value.ToString()== "SetCollection")
                 {
-
-                    switch (propertyEntry.Key)
-                    {
-                        case "category":
-                            {
-                                Dictionary<string, object> categoryDict = (Dictionary<string, object>)propertyEntry.Value;
-
-                                String typeLine = "";
-                                String icon = "";
-                                if(bla.ContainsKey("typeLine"))
-                                {
-                                    typeLine = (String)bla["typeLine"];
-                                }
-
-                                if (bla.ContainsKey("icon"))
-                                {
-                                    icon = (String)bla["icon"];
-                                }
-
-                                foreach (var categoryEntry in categoryDict)
-                                {
-                                    if (categoryEntry.Key == "maps" && typeLine.Contains("Offering"))
-                                    {
-                                        newItem.category = ItemType.Fragment;
-                                    }
-                                    else if (categoryEntry.Key == "armour" || categoryEntry.Key == "accessories")
-                                    {
-                                        String subcat = (String)((object[])categoryEntry.Value)[0];
-                                        newItem.category = ItemTypeUtils.FromString(subcat);
-                                    }
-                                    else if (categoryEntry.Key == "weapons")
-                                    {
-                                        if(icon.Contains("OneHand"))
-                                        {
-                                            newItem.category = ItemType.Wep1h;
-                                        } else if(icon.Contains("TwoHand"))
-                                        {
-                                            newItem.category = ItemType.Wep2h;
-                                        } else
-                                        {
-                                            throw new NotImplementedException("not implemented wep recognition");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        try
-                                        {
-                                            newItem.category = ItemTypeUtils.FromString(categoryEntry.Key);
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            Debug.WriteLine("eh.");
-                                        }
-                                    }
-
-                                    object[] subCat = (object[])categoryEntry.Value;
-                                    if (subCat.Count()>0)
-                                    newItem.subCategory = subCat[0].ToString();
-                                    if (newItem.subCategory == "helmet") hel++;
-                                }
-                                break;
-                            }
-                        case "typeLine":
-                            {
-                                string typeLinel = (string)propertyEntry.Value;
-                                newItem.typeName = typeLinel;
-                                break;
-                            }
-                        case "icon":
-                            {
-                                string icon = (string)propertyEntry.Value;
-                                newItem.icon = icon;
-                                break;
-                            }
-                        case "id":
-                            {
-                                string id = (string)propertyEntry.Value;
-                                newItem.id = id;
-                                break;
-                            }
-                        case "ilvl":
-                            {
-                                Int32 ilvl = (Int32)propertyEntry.Value;
-                                newItem.itlvl = ilvl;
-                                break;
-                            }
-                        case "x":
-                            {
-                                Int32 x = (Int32)propertyEntry.Value;
-                                newItem.x = x;
-                                break;
-                            }
-                        case "y":
-                            {
-                                Int32 y = (Int32)propertyEntry.Value;
-                                newItem.y = y;
-                                break;
-                            }
-                        case "w":
-                            {
-                                Int32 w = (Int32)propertyEntry.Value;
-                                newItem.w = w;
-                                break;
-                            }
-                        case "h":
-                            {
-                                Int32 h = (Int32)propertyEntry.Value;
-                                newItem.h = h;
-                                break;
-                            }
-                        case "identified":
-                            {
-                                bool identified = (bool)propertyEntry.Value;
-                                newItem.identified = identified;
-                                break;
-                            }
-                        case "frameType":
-                            {
-                                Int32 h = (Int32)propertyEntry.Value;
-                                newItem.frameType = h;
-                                break;
-                            }
-                    }
+                    setTabsIndexes.Add(r);
                 }
-                
-                myStash.Add(newItem);
             }
-            //Debug.WriteLine("Helmets: " + hel);
-            return myStash;
-        }
+            List<StashItemsFiltered> result = new List<StashItemsFiltered>();
 
-        
+            foreach (var tabIndex in setTabsIndexes)
+            {
+                string url = "https://pathofexile.com/character-window/get-stash-items?league=bestiary&tabs=0&tabIndex=" + tabIndex + "&accountName=" + acc.Name;
+                string json = WebTools.getPrivateStashJSON(acc, url);
+                //do to: read cookie expiration date, read new cookie only when expired.
+                //string json = WebTools.getPrivateStashJSON("8dcfe28b4cd5d1ca884e2f2d539f8057", url);
+
+                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                jsonSerializer.MaxJsonLength = Int32.MaxValue;
+                PrivateStash ro = jsonSerializer.Deserialize<PrivateStash>(json);
+
+                foreach (var item in ro.items)
+                {
+                    StashItemsFiltered newItem = new StashItemsFiltered();
+                    newItem.quadLayout = ro.quadLayout;
+                    Dictionary<string, object> bla = (Dictionary<string, object>)item;
+
+                    foreach (var propertyEntry in bla)
+                    {
+
+                        switch (propertyEntry.Key)
+                        {
+                            case "category":
+                                {
+                                    Dictionary<string, object> categoryDict = (Dictionary<string, object>)propertyEntry.Value;
+
+                                    String typeLine = "";
+                                    String icon = "";
+                                    if (bla.ContainsKey("typeLine"))
+                                    {
+                                        typeLine = (String)bla["typeLine"];
+                                    }
+
+                                    if (bla.ContainsKey("icon"))
+                                    {
+                                        icon = (String)bla["icon"];
+                                    }
+
+                                    foreach (var categoryEntry in categoryDict)
+                                    {
+                                        if (categoryEntry.Key == "maps" && typeLine.Contains("Offering"))
+                                        {
+                                            newItem.category = ItemType.Fragment;
+                                        }
+                                        else if (categoryEntry.Key == "armour" || categoryEntry.Key == "accessories")
+                                        {
+                                            String subcat = (String)((object[])categoryEntry.Value)[0];
+                                            newItem.category = ItemTypeUtils.FromString(subcat);
+                                        }
+                                        else if (categoryEntry.Key == "weapons")
+                                        {
+                                            if (icon.Contains("OneHand"))
+                                            {
+                                                newItem.category = ItemType.Wep1h;
+                                            }
+                                            else if (icon.Contains("TwoHand"))
+                                            {
+                                                newItem.category = ItemType.Wep2h;
+                                            }
+                                            else
+                                            {
+                                                throw new NotImplementedException("not implemented wep recognition");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            try
+                                            {
+                                                newItem.category = ItemTypeUtils.FromString(categoryEntry.Key);
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                Debug.WriteLine("eh.");
+                                            }
+                                        }
+
+                                        object[] subCat = (object[])categoryEntry.Value;
+                                        if (subCat.Count() > 0)
+                                            newItem.subCategory = subCat[0].ToString();
+                                    }
+                                    break;
+                                }
+                            case "typeLine":
+                                {
+                                    string typeLinel = (string)propertyEntry.Value;
+                                    newItem.typeName = typeLinel;
+                                    break;
+                                }
+                            case "icon":
+                                {
+                                    string icon = (string)propertyEntry.Value;
+                                    newItem.icon = icon;
+                                    break;
+                                }
+                            case "id":
+                                {
+                                    string id = (string)propertyEntry.Value;
+                                    newItem.id = id;
+                                    break;
+                                }
+                            case "ilvl":
+                                {
+                                    Int32 ilvl = (Int32)propertyEntry.Value;
+                                    newItem.itlvl = ilvl;
+                                    break;
+                                }
+                            case "x":
+                                {
+                                    Int32 x = (Int32)propertyEntry.Value;
+                                    newItem.x = x;
+                                    break;
+                                }
+                            case "y":
+                                {
+                                    Int32 y = (Int32)propertyEntry.Value;
+                                    newItem.y = y;
+                                    break;
+                                }
+                            case "w":
+                                {
+                                    Int32 w = (Int32)propertyEntry.Value;
+                                    newItem.w = w;
+                                    break;
+                                }
+                            case "h":
+                                {
+                                    Int32 h = (Int32)propertyEntry.Value;
+                                    newItem.h = h;
+                                    break;
+                                }
+                            case "identified":
+                                {
+                                    bool identified = (bool)propertyEntry.Value;
+                                    newItem.identified = identified;
+                                    break;
+                                }
+                            case "frameType":
+                                {
+                                    Int32 frameType = (Int32)propertyEntry.Value;
+                                    newItem.frameType = frameType;
+                                    break;
+                                }
+                            case "inventoryId":
+                                {
+                                    int inventoryId = int.Parse(((string)propertyEntry.Value).Replace("Stash", ""));
+                                    newItem.inventoryIndex = inventoryId;
+                                    break;
+                                }
+                        }
+                    }
+
+                    result.Add(newItem);
+                }
+            }
+            return result;
+        }
 
         public static string getPublicJSON(string next_change_id = null)
         {

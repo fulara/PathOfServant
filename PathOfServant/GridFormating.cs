@@ -100,7 +100,7 @@ namespace PathOfServant
             comboColum.HeaderText = "Usage";
             comboColum.Name = "Usage";
             comboColum.DataSource = items;
-            comboColum.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            comboColum.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton;
             DataGridViewTextBoxColumn idCol = new DataGridViewTextBoxColumn();
             idCol.HeaderText = "id";
             idCol.Name = "id";
@@ -197,6 +197,7 @@ namespace PathOfServant
 
                 if (!typeEntry.Key.IsWeapon())
                 {
+                    if (!setsQty.ContainsKey(typeEntry.Key.ToString())) continue;
                     if (typeEntry.Key.ToString()!="Ring")
                     {
                         setsQty[typeEntry.Key.ToString()] = typeEntry.Value.Count;
@@ -208,7 +209,7 @@ namespace PathOfServant
                 }
                 else
                 {
-                    if (typeEntry.Key.ToString() != "Ring")
+                    if (typeEntry.Key.ToString() == "Wep1h")
                     {
                         setsQty["Weapon"] += typeEntry.Value.Count / 2;
                     }
@@ -231,7 +232,6 @@ namespace PathOfServant
             {
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-
         }
 
         private static string GetIconLocalPath(string url)

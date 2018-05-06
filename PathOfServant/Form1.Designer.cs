@@ -50,21 +50,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxAcc = new System.Windows.Forms.TextBox();
             this.dataGridViewSets = new System.Windows.Forms.DataGridView();
+            this.Col1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SetsQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.dataGridViewStashes = new System.Windows.Forms.DataGridView();
             this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usage = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewItems = new System.Windows.Forms.DataGridView();
-            this.Col1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SetsQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStash)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSets)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewStash
@@ -79,7 +79,7 @@
             this.dataGridViewStash.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewStash.Name = "dataGridViewStash";
             this.dataGridViewStash.RowTemplate.Height = 24;
-            this.dataGridViewStash.Size = new System.Drawing.Size(288, 368);
+            this.dataGridViewStash.Size = new System.Drawing.Size(292, 368);
             this.dataGridViewStash.TabIndex = 6;
             // 
             // timer1
@@ -186,6 +186,7 @@
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "StashNo";
+            this.label4.Visible = false;
             // 
             // textBoxStashNo
             // 
@@ -195,6 +196,7 @@
             this.textBoxStashNo.Size = new System.Drawing.Size(99, 20);
             this.textBoxStashNo.TabIndex = 11;
             this.textBoxStashNo.Text = "7";
+            this.textBoxStashNo.Visible = false;
             // 
             // checkBox1
             // 
@@ -299,22 +301,36 @@
             this.Col1,
             this.SetsQty});
             this.dataGridViewSets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSets.Location = new System.Drawing.Point(513, 2);
+            this.dataGridViewSets.Location = new System.Drawing.Point(478, 2);
             this.dataGridViewSets.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewSets.Name = "dataGridViewSets";
             this.dataGridViewSets.RowHeadersVisible = false;
             this.dataGridViewSets.RowTemplate.Height = 24;
             this.dataGridViewSets.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewSets.Size = new System.Drawing.Size(127, 368);
+            this.dataGridViewSets.Size = new System.Drawing.Size(129, 368);
             this.dataGridViewSets.TabIndex = 9;
+            // 
+            // Col1
+            // 
+            this.Col1.HeaderText = "Type";
+            this.Col1.Name = "Col1";
+            this.Col1.ReadOnly = true;
+            this.Col1.Width = 70;
+            // 
+            // SetsQty
+            // 
+            this.SetsQty.HeaderText = "Sets qty";
+            this.SetsQty.Name = "SetsQty";
+            this.SetsQty.ReadOnly = true;
+            this.SetsQty.Width = 60;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.89473F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.67105F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.80263F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.63158F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.32888F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.26397F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.998F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.40915F));
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewItems, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewStash, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewSets, 1, 0);
@@ -326,6 +342,22 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(890, 372);
             this.tableLayoutPanel1.TabIndex = 10;
+            // 
+            // dataGridViewItems
+            // 
+            this.dataGridViewItems.AllowUserToAddRows = false;
+            this.dataGridViewItems.AllowUserToDeleteRows = false;
+            this.dataGridViewItems.AllowUserToResizeColumns = false;
+            this.dataGridViewItems.AllowUserToResizeRows = false;
+            this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewItems.Location = new System.Drawing.Point(298, 2);
+            this.dataGridViewItems.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewItems.Name = "dataGridViewItems";
+            this.dataGridViewItems.RowHeadersVisible = false;
+            this.dataGridViewItems.RowTemplate.Height = 24;
+            this.dataGridViewItems.Size = new System.Drawing.Size(176, 368);
+            this.dataGridViewItems.TabIndex = 12;
             // 
             // dataGridViewStashes
             // 
@@ -340,12 +372,12 @@
             this.Usage,
             this.id});
             this.dataGridViewStashes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewStashes.Location = new System.Drawing.Point(644, 2);
+            this.dataGridViewStashes.Location = new System.Drawing.Point(611, 2);
             this.dataGridViewStashes.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewStashes.Name = "dataGridViewStashes";
             this.dataGridViewStashes.RowHeadersVisible = false;
             this.dataGridViewStashes.RowTemplate.Height = 24;
-            this.dataGridViewStashes.Size = new System.Drawing.Size(244, 368);
+            this.dataGridViewStashes.Size = new System.Drawing.Size(277, 368);
             this.dataGridViewStashes.TabIndex = 11;
             this.dataGridViewStashes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStashes_CellValueChanged);
             // 
@@ -372,36 +404,6 @@
             this.id.Name = "id";
             this.id.Visible = false;
             // 
-            // dataGridViewItems
-            // 
-            this.dataGridViewItems.AllowUserToAddRows = false;
-            this.dataGridViewItems.AllowUserToDeleteRows = false;
-            this.dataGridViewItems.AllowUserToResizeColumns = false;
-            this.dataGridViewItems.AllowUserToResizeRows = false;
-            this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewItems.Location = new System.Drawing.Point(294, 2);
-            this.dataGridViewItems.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridViewItems.Name = "dataGridViewItems";
-            this.dataGridViewItems.RowHeadersVisible = false;
-            this.dataGridViewItems.RowTemplate.Height = 24;
-            this.dataGridViewItems.Size = new System.Drawing.Size(215, 368);
-            this.dataGridViewItems.TabIndex = 12;
-            // 
-            // Col1
-            // 
-            this.Col1.HeaderText = "Type";
-            this.Col1.Name = "Col1";
-            this.Col1.ReadOnly = true;
-            this.Col1.Width = 70;
-            // 
-            // SetsQty
-            // 
-            this.SetsQty.HeaderText = "Sets qty";
-            this.SetsQty.Name = "SetsQty";
-            this.SetsQty.ReadOnly = true;
-            this.SetsQty.Width = 60;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,8 +419,8 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSets)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStashes)).EndInit();
             this.ResumeLayout(false);
 
         }

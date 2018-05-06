@@ -31,7 +31,7 @@ namespace PathOfServant
 
         public bool RefreshStash()
         {
-            List<StashItemsFiltered> itemsFromWeb = WebTools.GetStashItemsFromWeb(config.Account, form.textBoxStashNo.Text);
+            List<StashItemsFiltered> itemsFromWeb = WebTools.GetSetCollectionItemsFromWeb(config.Account, form.dataGridViewStashes);
             if (previousItemsCount != itemsFromWeb.Count)
             {
                 previousItemsCount = itemsFromWeb.Count;

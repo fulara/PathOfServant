@@ -22,6 +22,7 @@ namespace PathOfServant
         public bool picked { get; set; }
         public bool identified { get; set; }
         public int frameType { get; set; }
+        public int inventoryIndex { get; set; }
 
         public static StashItemsFiltered Copy(StashItemsFiltered inputItem)
         {
@@ -41,6 +42,7 @@ namespace PathOfServant
             result.picked = inputItem.picked;
             result.identified = inputItem.identified;
             result.frameType = inputItem.frameType;
+            result.inventoryIndex = inputItem.inventoryIndex;
             return result;
         }
     }
