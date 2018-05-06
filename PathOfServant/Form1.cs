@@ -56,6 +56,11 @@ namespace PathOfServant
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Rectangle resolution = Screen.PrimaryScreen.Bounds;
+            hScrollBarX.Maximum = resolution.Width;
+            hScrollBarX.Value = 500;
+            hScrollBarY.Maximum = resolution.Height;
+            hScrollBarY.Value = 100;
 
         }
 
@@ -166,5 +171,17 @@ namespace PathOfServant
                 GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), config, dataGridViewStashes);
             }
         }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+            {
+                OverlayForm overlay = new OverlayForm(checkBox2, dataGridViewSets, hScrollBarX,hScrollBarY);
+                overlay.Show();
+            }
+            
+        }
+
+
     }
 }

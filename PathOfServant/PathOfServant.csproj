@@ -106,6 +106,12 @@
     <Compile Include="ItemType.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="KeyboardHook.cs" />
+    <Compile Include="OverlayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OverlayForm.Designer.cs">
+      <DependentUpon>OverlayForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PublicStash.cs" />
     <Compile Include="SetCalculation.cs" />
     <Compile Include="StashDumpLogic.cs" />
@@ -121,6 +127,9 @@
     <Compile Include="WebTools.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverlayForm.resx">
+      <DependentUpon>OverlayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
