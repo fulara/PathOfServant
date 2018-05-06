@@ -33,6 +33,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonPublicLoop = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonShowTabs = new System.Windows.Forms.Button();
             this.league = new System.Windows.Forms.Label();
             this.comboBoxLeague = new System.Windows.Forms.ComboBox();
             this.labelLastChange = new System.Windows.Forms.Label();
@@ -43,8 +44,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonPickSet = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxId = new System.Windows.Forms.TextBox();
             this.comboBoxStashName = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -89,7 +88,7 @@
             // 
             // buttonPublicLoop
             // 
-            this.buttonPublicLoop.Location = new System.Drawing.Point(576, 10);
+            this.buttonPublicLoop.Location = new System.Drawing.Point(488, 9);
             this.buttonPublicLoop.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPublicLoop.Name = "buttonPublicLoop";
             this.buttonPublicLoop.Size = new System.Drawing.Size(65, 59);
@@ -101,6 +100,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonShowTabs);
             this.panel1.Controls.Add(this.league);
             this.panel1.Controls.Add(this.comboBoxLeague);
             this.panel1.Controls.Add(this.labelLastChange);
@@ -111,8 +111,6 @@
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.buttonPickSet);
             this.panel1.Controls.Add(this.buttonRefresh);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.textBoxId);
             this.panel1.Controls.Add(this.comboBoxStashName);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -125,16 +123,25 @@
             this.panel1.Size = new System.Drawing.Size(890, 81);
             this.panel1.TabIndex = 5;
             // 
+            // buttonShowTabs
+            // 
+            this.buttonShowTabs.Location = new System.Drawing.Point(611, 58);
+            this.buttonShowTabs.Name = "buttonShowTabs";
+            this.buttonShowTabs.Size = new System.Drawing.Size(279, 23);
+            this.buttonShowTabs.TabIndex = 18;
+            this.buttonShowTabs.Text = "Show Tabs";
+            this.buttonShowTabs.UseVisualStyleBackColor = true;
+            this.buttonShowTabs.Click += new System.EventHandler(this.buttonShowTabs_Click);
+            // 
             // league
             // 
             this.league.AutoSize = true;
-            this.league.Location = new System.Drawing.Point(715, 38);
+            this.league.Location = new System.Drawing.Point(608, 37);
             this.league.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.league.Name = "league";
-            this.league.Size = new System.Drawing.Size(38, 13);
+            this.league.Size = new System.Drawing.Size(43, 13);
             this.league.TabIndex = 17;
-            this.league.Text = "start id";
-            this.league.Visible = false;
+            this.league.Text = "League";
             // 
             // comboBoxLeague
             // 
@@ -142,9 +149,9 @@
             this.comboBoxLeague.Items.AddRange(new object[] {
             "Bestiary",
             "Flashback Event (BRE001)"});
-            this.comboBoxLeague.Location = new System.Drawing.Point(758, 35);
+            this.comboBoxLeague.Location = new System.Drawing.Point(656, 34);
             this.comboBoxLeague.Name = "comboBoxLeague";
-            this.comboBoxLeague.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxLeague.Size = new System.Drawing.Size(75, 21);
             this.comboBoxLeague.TabIndex = 16;
             this.comboBoxLeague.SelectedIndexChanged += new System.EventHandler(this.comboBoxLeague_SelectedIndexChanged);
             // 
@@ -173,7 +180,7 @@
             // 
             this.textBoxCookie.Location = new System.Drawing.Point(408, 10);
             this.textBoxCookie.Name = "textBoxCookie";
-            this.textBoxCookie.Size = new System.Drawing.Size(163, 20);
+            this.textBoxCookie.Size = new System.Drawing.Size(75, 20);
             this.textBoxCookie.TabIndex = 13;
             this.textBoxCookie.TextChanged += new System.EventHandler(this.textBoxCookie_TextChanged);
             // 
@@ -230,34 +237,13 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(715, 5);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "start id";
-            this.label3.Visible = false;
-            // 
-            // textBoxId
-            // 
-            this.textBoxId.Location = new System.Drawing.Point(758, 3);
-            this.textBoxId.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxId.Name = "textBoxId";
-            this.textBoxId.Size = new System.Drawing.Size(121, 20);
-            this.textBoxId.TabIndex = 6;
-            this.textBoxId.Text = "180609217-188060193-177101831-203691270-191104426";
-            this.textBoxId.Visible = false;
-            // 
             // comboBoxStashName
             // 
             this.comboBoxStashName.FormattingEnabled = true;
             this.comboBoxStashName.Location = new System.Drawing.Point(429, 35);
             this.comboBoxStashName.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxStashName.Name = "comboBoxStashName";
-            this.comboBoxStashName.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStashName.Size = new System.Drawing.Size(45, 21);
             this.comboBoxStashName.TabIndex = 5;
             this.comboBoxStashName.Visible = false;
             // 
@@ -274,7 +260,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 10);
+            this.label1.Location = new System.Drawing.Point(759, 38);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
@@ -283,7 +269,7 @@
             // 
             // textBoxAcc
             // 
-            this.textBoxAcc.Location = new System.Drawing.Point(61, 5);
+            this.textBoxAcc.Location = new System.Drawing.Point(789, 33);
             this.textBoxAcc.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAcc.Name = "textBoxAcc";
             this.textBoxAcc.Size = new System.Drawing.Size(99, 20);
@@ -432,8 +418,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonPickSet;
         private System.Windows.Forms.Button buttonRefresh;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxId;
         private System.Windows.Forms.ComboBox comboBoxStashName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -456,6 +440,7 @@
         public System.Windows.Forms.DataGridView dataGridViewItems;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col1;
         private System.Windows.Forms.DataGridViewTextBoxColumn SetsQty;
+        private System.Windows.Forms.Button buttonShowTabs;
     }
 }
 

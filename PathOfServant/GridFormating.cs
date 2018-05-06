@@ -31,62 +31,66 @@ namespace PathOfServant
         public static void FormatGriForUserTabs(List<TabInfo> userTabs, Config config, DataGridView grid)
         {
             Dictionary<string, string> tabCaptionToId = new Dictionary<string, string>();
-            if (config.TabUsage.Currency != null)
+            if (config.TabUsage != null)
             {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.Currency))
+                if (config.TabUsage.Currency != null)
                 {
-                    tabCaptionToId.Add(config.TabUsage.Currency, "Currency");
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Currency))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Currency, "Currency");
+                    }
+                }
+                if (config.TabUsage.DivCards != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.DivCards))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.DivCards, "DivCards");
+                    }
+                }
+                if (config.TabUsage.Dump != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Dump))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Dump, "Dump");
+                    }
+                }
+                if (config.TabUsage.Essences != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Essences))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Essences, "Essences");
+                    }
+                }
+                if (config.TabUsage.Fragments != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Fragments))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Fragments, "Fragments");
+                    }
+                }
+                if (config.TabUsage.Maps != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Maps))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Maps, "Maps");
+                    }
+                }
+                if (config.TabUsage.Other != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.Other))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.Other, "Other");
+                    }
+                }
+                if (config.TabUsage.SetCollection != null)
+                {
+                    if (!tabCaptionToId.ContainsKey(config.TabUsage.SetCollection))
+                    {
+                        tabCaptionToId.Add(config.TabUsage.SetCollection, "SetCollection");
+                    }
                 }
             }
-            if (config.TabUsage.DivCards != null)
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.DivCards))
-                {
-                    tabCaptionToId.Add(config.TabUsage.DivCards, "DivCards");
-                }
-            }
-            if (config.TabUsage.Dump != null )
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.Dump))
-                {
-                    tabCaptionToId.Add(config.TabUsage.Dump, "Dump");
-                }
-            }
-            if (config.TabUsage.Essences != null)
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.Essences))
-                {
-                    tabCaptionToId.Add(config.TabUsage.Essences, "Essences");
-                }
-            }
-            if (config.TabUsage.Fragments != null)
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.Fragments))
-                {
-                    tabCaptionToId.Add(config.TabUsage.Fragments, "Fragments");
-                }
-            }
-            if (config.TabUsage.Maps != null )
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.Maps))
-                {
-                    tabCaptionToId.Add(config.TabUsage.Maps, "Maps");
-                }
-            }
-            if (config.TabUsage.Other != null )
-            {
-                if(!tabCaptionToId.ContainsKey(config.TabUsage.Other))
-                {
-                    tabCaptionToId.Add(config.TabUsage.Other, "Other");
-                }
-            }
-            if (config.TabUsage.SetCollection != null)
-            {
-                if (!tabCaptionToId.ContainsKey(config.TabUsage.SetCollection))
-                {
-                    tabCaptionToId.Add(config.TabUsage.SetCollection, "SetCollection");
-                }
-            }
+            //var items = new List<string>{ "Currency ", "Maps", "Fragments", "DivCards", "Essences", "SetCollection", "Dump", "Other" };
             var items = config.TabUsage.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(i=>i.Name).ToArray();
             //var itemsv = config.TabUsage.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(i=>i.GetValue(config, null)).ToList();
             grid.Columns.Clear();

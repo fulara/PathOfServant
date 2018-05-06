@@ -56,7 +56,7 @@ namespace PathOfServant
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), config, dataGridViewStashes);
+
         }
 
         private void textBoxAcc_TextChanged(object sender, EventArgs e)
@@ -82,6 +82,11 @@ namespace PathOfServant
             if (config.Account == null)
             {
                 config.Account = new Account();
+            }
+
+            if (config.TabUsage == null)
+            {
+                config.TabUsage = new TabUsage();
             }
 
             if (String.IsNullOrEmpty(config.Account.Cookie))
@@ -151,6 +156,14 @@ namespace PathOfServant
                     }
                     config.Save();
                 }
+            }
+        }
+
+        private void buttonShowTabs_Click(object sender, EventArgs e)
+        {
+            if (comboBoxLeague.Text != "" & textBoxAcc.Text != "")
+            {
+                GridFormating.FormatGriForUserTabs(WebTools.GetUserTabs(config.Account), config, dataGridViewStashes);
             }
         }
     }
