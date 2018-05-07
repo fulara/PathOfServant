@@ -182,6 +182,21 @@ namespace PathOfServant
             
         }
 
+        private void checkBoxRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRefresh.Checked)
+            {
+                timer_setCollectionStashRefresh.Enabled = true;
+            }
+            else
+            {
+                timer_setCollectionStashRefresh.Enabled = false;
+            }
+        }
 
+        private void timer_setCollectionStashRefresh_Tick(object sender, EventArgs e)
+        {
+            stashSorter.RefreshStash();
+        }
     }
 }

@@ -34,11 +34,17 @@ namespace PathOfServant
             formCheckbox.CheckedChanged += new EventHandler(formCheck_checkChanged);
             scrollX.ValueChanged += new EventHandler(scroll_ValueChanged);
             scrollY.ValueChanged += new EventHandler(scroll_ValueChanged);
-            //gridSets.CellValueChanged += new DataGridViewCellEventHandler(gridSets_CellValueChanged);
+            gridSets.CellValueChanged += new DataGridViewCellEventHandler(gridSets_CellValueChanged);
+            gridSets.RowsAdded += new DataGridViewRowsAddedEventHandler(gridSets_RowAdded);
 
             this.scrollX = scrollX;
             this.scrollY = scrollY;
             this.gridSets = gridSets;
+        }
+
+        private void gridSets_RowAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            this.Refresh();
         }
 
         private void scroll_ValueChanged(object sender, EventArgs e)
@@ -50,11 +56,13 @@ namespace PathOfServant
         {
             List<string> result = new List<string>();
             result.Add("Sets:");
+            List<Tuple<string, int>> items = new List<Tuple<string, int>>();
             foreach (DataGridViewRow row in gridSets.Rows)
             {
-                result.Add(row.Cells[0].Value.ToString() + " " + row.Cells[1].Value.ToString());
+                items.Add(new Tuple<string, int>(row.Cells[0].Value.ToString(), int.Parse(row.Cells[1].Value.ToString())));
             }
-            return result.ToArray(); ;
+            return items.OrderBy(i => i.Item2).Select(i => i.Item1.ToString() + " " + i.Item2.ToString()).ToArray();
+            //return result.ToArray(); ;
         }
 
         private void gridSets_CellValueChanged(object sender, DataGridViewCellEventArgs e)
